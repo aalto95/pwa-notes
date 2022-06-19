@@ -4,10 +4,8 @@ import AddNote from './components/AddNote.vue'
 </script>
 
 <template>
-  <div class="container">
-    <Notes msg="Hello Vue 3 + Vite" />
-    <AddNote />
-  </div>
+  <Notes msg="Hello Vue 3 + Vite" />
+  <AddNote />
 </template>
 
 <style>
@@ -16,16 +14,7 @@ import AddNote from './components/AddNote.vue'
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px; 
   overflow-x: hidden;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 html, body {

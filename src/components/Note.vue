@@ -63,7 +63,7 @@ function deleteNote() {
 <template>
   <div class="flex touch-none">
     <div
-      class="bg-purple-500 w-screen flex p-2" 
+      class="bg-gray-100 w-screen flex p-2" 
       @mousemove="listenToMouseMove"
       @mousedown="listenToMouseDown"
       @mouseleave="listenToMouseUp"
@@ -72,10 +72,13 @@ function deleteNote() {
       @touchend="listenToTouchEnd"
       @touchmove="listenToTouchMove"
     >
-      <p class="translate-x-12">{{note}}</p>
+      <p class="translate-x-12 w-full text-left break-all">{{note}}</p>
     </div>
     <button class=" duration-500 bg-red-500 text-white" :class="[widthClass]" @click="deleteNote">
-      Удалить
+      Delete
+    </button>
+    <button class=" duration-500 bg-yellow-500 text-white" :class="[widthClass]">
+      Edit
     </button>
   </div>
 </template>

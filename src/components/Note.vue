@@ -61,7 +61,7 @@ function deleteNote() {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex touch-none">
     <div
       class="bg-purple-500 w-screen flex p-2" 
       @mousemove="listenToMouseMove"

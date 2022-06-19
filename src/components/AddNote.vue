@@ -13,9 +13,9 @@ function addNote() {
 </script>
 
 <template>
-  <div>
-    <input v-model="note" @keyup.enter="addNote" placeholder="Add Note" type="text" class="bg-light-50 border-dark-400 border-b-dark-800 border-1 rounded-xl">
-    <button class="bg-black p-2 w-20 text-gray-400" @click="addNote">Add</button>
+  <div class="mt-4">
+    <input v-model="note" @keyup.enter="addNote" placeholder="Add Note" type="text" class="bg-light-400 border-dark-400 border-b-dark-800 p-2">
+    <button class="bg-black p-2 w-20 text-gray-400 font-bold" @click="addNote">Add</button>
   </div>
 </template>
 

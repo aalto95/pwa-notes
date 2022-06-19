@@ -14,7 +14,9 @@ export const useStore = defineStore('counter', {
       this.count++
     },
     getNotes() {
-      this.notes = JSON.parse(localStorage.getItem('notes'))
+      if (localStorage.getItem('notes') !== null) {
+        this.notes = JSON.parse(localStorage.getItem('notes'))
+      }
     },
     addNote(note) {
       this.notes.push(note)

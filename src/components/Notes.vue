@@ -1,7 +1,8 @@
 <script setup>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useStore } from '../store/store'
 import { storeToRefs } from 'pinia'
+import Note from './Note.vue'
 
 defineProps({
   msg: String
@@ -9,11 +10,16 @@ defineProps({
 
 const store = useStore()
 
+onMounted(() => {
+  store.getNotes()
+})
+
 </script>
 
 <template>
-  <p v-for="note in store.notes">{{note}}</p>
-  <button @click="store.increment">click me</button>
+  <div class="w-screen overflow-x-hidden">
+    <Note v-for="note in store.notes" :note=note />
+  </div>
 </template>
 
 <style scoped>

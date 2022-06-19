@@ -17,7 +17,8 @@ import AddNote from './components/AddNote.vue'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 60px; 
+  overflow-x: hidden;
 }
 
 .container {
@@ -25,5 +26,11 @@ import AddNote from './components/AddNote.vue'
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>

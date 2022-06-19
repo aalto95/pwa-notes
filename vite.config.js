@@ -19,10 +19,12 @@ export default defineConfig({
     strategies: 'injectManifest',
     includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Name of your app',
-        short_name: 'Short name of your app',
-        description: 'Description of your app',
+        name: 'Notes',
+        short_name: 'Notes',
+        description: 'App for taking notes',
         theme_color: '#ffffff',
+        display: 'standalone',
+        start_url: '.',
         icons: [
           {
             src: 'pwa-192x192.png',

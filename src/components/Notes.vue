@@ -12,7 +12,7 @@ const store = useStore()
 </script>
 
 <template>
-  <h1>{{store.count}}</h1>
+  <p v-for="note in store.notes">{{note}}</p>
   <button @click="store.increment">click me</button>
 </template>
 

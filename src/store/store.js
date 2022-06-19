@@ -5,13 +5,16 @@ import { defineStore } from 'pinia'
 export const useStore = defineStore('counter', {
   state: () => {
     return {
-      name: 'hi',
+      notes: [],
       count: 0,
     }
   },
   actions: {
     increment() {
       this.count++
+    },
+    addNote(note) {
+      this.notes.push(note)
     }
   }
 })

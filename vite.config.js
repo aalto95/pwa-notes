@@ -6,6 +6,17 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), WindiCSS(), VitePWA({
+    srcDir: 'public',
+    filename: 'sw.js',
+    registerType: 'autoUpdate',
+    build: {
+      sourcemap: true
+    },
+    workbox: {
+      cleanupOutdatedCaches: false,
+      sourcemap: true
+    },
+    strategies: 'injectManifest',
     includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'Name of your app',

@@ -6,7 +6,7 @@
     "build": "vite build --mode production",
     "dev": "vite --mode development",
     "prod": "vite --mode production",
-    "preview": "vite preview"
+    "serve": "vite preview"
   },
   "dependencies": {
     "pinia": "^2.0.14",

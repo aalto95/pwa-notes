@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
 import { useStore } from '../store/store'
 import Note from './Note.vue'
@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
   <div class="w-screen overflow-x-hidden">
-    <Note v-for="(note, index) in store.notes" :note=note :key=note.id />
+    <Note v-for="note in store.notes" :note=note :key=note.id />
   </div>
 </template>
 

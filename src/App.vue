@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Notes from './components/Notes.vue'
 import AddNote from './components/AddNote.vue'
 import PinnedNotes from './components/PinnedNotes.vue'

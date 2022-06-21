@@ -1,11 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { useStore } from '../store/store'
+import { ref } from 'vue';
+import { Note } from '../models/Note'
 
-import {ref, nextTick} from 'vue'
-const props = defineProps({
-  note: Object,
-  pinned: Boolean
-})
+interface Props {
+  note: Note,
+  pinned?: boolean
+}
+
+const props = defineProps<Props>()
 
 const store = useStore()
 
@@ -15,7 +18,7 @@ const isCurrentlyTouched = ref(false)
 const widthClass = ref('w-0')
 const inputWidthClass = ref('w-0')
 const editMode = ref(false)
-const focusMe = ref(null)
+const editField = ref<HTMLInputElement | null>(null)
 
 function listenToMouseDown(e) {
   isCurrentlyTouched.value = true
@@ -96,7 +99,7 @@ function editModeOn() {
   widthClass.value = 'w-0'
   inputWidthClass.value = 'w-48'
   isCurrentlyTouched.value = false
-  focusMe.value.focus()
+  editField.value!.focus()
 }
 
 </script>
@@ -116,7 +119,7 @@ function editModeOn() {
       <p class="translate-x-12 w-full text-left break-all w-40 sm:w-60 lg:w-80 xl:w-100 truncate whitespace-nowrap select-none" v-if="!editMode">{{note.text}}</p>
       <input
         type="text"
-        :ref="(el) => { focusMe = el }"
+        :ref="(el: any) => { editField = el }"
         v-model="props.note.text"
         class="outline-none"
         :class="[inputWidthClass]"

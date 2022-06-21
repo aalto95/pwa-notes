@@ -118,7 +118,7 @@ function editModeOn() {
         type="text"
         :ref="(el) => { focusMe = el }"
         v-model="props.note.text"
-        class="outline-transparent"
+        class="outline-0"
         :class="[inputWidthClass]"
         @focusout="editModeOff()"
       >

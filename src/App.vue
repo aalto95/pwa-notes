@@ -4,7 +4,7 @@ import AddNote from './components/AddNote.vue'
 </script>
 
 <template>
-  <Notes msg="Hello Vue 3 + Vite" />
+  <Notes />
   <AddNote />
 </template>
 

@@ -16,9 +16,11 @@ import PinnedNotes from './components/PinnedNotes.vue'
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent; 
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   overflow-x: hidden;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 html, body {

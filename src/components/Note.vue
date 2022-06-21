@@ -107,7 +107,7 @@ function editModeOn() {
 <template>
   <div class="flex touch-none">
     <div
-      class="bg-gray-100 w-screen flex p-2 h-12 items-center" 
+      class="w-screen flex p-2 h-12 items-center" 
       @mousemove="listenToMouseMove"
       @mousedown="listenToMouseDown"
       @mouseleave="listenToMouseUp"
@@ -126,6 +126,9 @@ function editModeOn() {
         @focusout="editModeOff()"
         @keyup.enter="editModeOff()"
       >
+    </div>
+    <div class="flex items-center w-4 mr-2" v-if="props.pinned && widthClass === 'w-0'">
+      <img src="../assets/pin.svg" alt="pin" class="w-4 h-4 select-none" />
     </div>
     <button class=" duration-500 bg-red-500 text-white select-none" :class="[widthClass]" @click="props.pinned ? deletePinnedNote() : deleteNote()">
       Delete

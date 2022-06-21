@@ -47,6 +47,24 @@ export const useStore = defineStore('counter', {
     deleteNote(id) {
       this.notes = this.notes.filter(note => note.id !== id)
       localStorage.setItem('notes', JSON.stringify(this.notes))
+    },
+    editNote(changedNote) {
+      this.notes = this.notes.map((note) => {
+        if (note.id === changedNote.id) {
+          return changedNote
+        }
+        return note
+      })
+      localStorage.setItem('notes', JSON.stringify(this.notes))
+    },
+    editPinnedNote(changedPinnedNote) {
+      this.pinnedNotes = this.pinnedNotes.map((pinnedNote) => {
+        if (pinnedNote.id === changedPinnedNote.id) {
+          return changedPinnedNote
+        }
+        return pinnedNote
+      })
+      localStorage.setItem('pinnedNotes', JSON.stringify(this.pinnedNotes))
     }
   }
 })

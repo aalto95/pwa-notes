@@ -14,6 +14,7 @@ import PinnedNotes from './components/PinnedNotes.vue'
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; 
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   overflow-x: hidden;

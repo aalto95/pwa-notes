@@ -1,7 +1,7 @@
 <script setup>
 import { useStore } from '../store/store'
 
-import {ref} from 'vue'
+import {ref, nextTick} from 'vue'
 const props = defineProps({
   note: Object,
   pinned: Boolean
@@ -12,7 +12,10 @@ const store = useStore()
 const downX = ref(0)
 const upX = ref(0)
 const isCurrentlyTouched = ref(false)
-const widthClass= ref('w-0')
+const widthClass = ref('w-0')
+const inputWidthClass = ref('w-0')
+const editMode = ref(false)
+const focusMe = ref(null)
 
 function listenToMouseDown(e) {
   isCurrentlyTouched.value = true
@@ -70,6 +73,32 @@ function deletePinnedNote() {
   store.deletePinnedNote(props.note.id)
 }
 
+function editPinnedNote() {
+  store.editPinnedNote(props.note)
+}
+
+function editNote() {
+  store.editNote(props.note)
+}
+
+function editModeOff() {
+  editMode.value = false
+  inputWidthClass.value = 'w-0'
+  if (props.pinned) {
+    editPinnedNote()
+  } else {
+    editNote()
+  }
+}
+
+function editModeOn() {
+  editMode.value = true
+  widthClass.value = 'w-0'
+  inputWidthClass.value = 'w-48'
+  isCurrentlyTouched.value = false
+  focusMe.value.focus()
+}
+
 </script>
 
 <template>
@@ -84,13 +113,23 @@ function deletePinnedNote() {
       @touchend="listenToTouchEnd"
       @touchmove="listenToTouchMove"
     >
-      <p class="translate-x-12 w-full text-left break-all">{{note.text}}</p>
+      <p class="translate-x-12 w-full text-left break-all" v-if="!editMode">{{note.text}}</p>
+      <input
+        type="text"
+        :ref="(el) => { focusMe = el }"
+        v-model="props.note.text"
+        :class="[inputWidthClass]"
+        @focusout="editModeOff()"
+      >
     </div>
     <button class=" duration-500 bg-red-500 text-white select-none" :class="[widthClass]" @click="props.pinned ? deletePinnedNote() : deleteNote()">
       Delete
     </button>
     <button class=" duration-500 bg-yellow-500 text-white select-none" :class="[widthClass]" @click="props.pinned ? unpinNote() : pinNote()">
       {{props.pinned ? 'Unpin' : 'Pin'}}
+    </button>
+    <button class=" duration-500 bg-green-500 text-white select-none" :class="[widthClass]" @click="editModeOn()">
+      Edit
     </button>
   </div>
 </template>

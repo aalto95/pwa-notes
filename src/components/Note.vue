@@ -104,7 +104,7 @@ function editModeOn() {
 <template>
   <div class="flex touch-none">
     <div
-      class="bg-gray-100 w-screen flex p-2" 
+      class="bg-gray-100 w-screen flex p-2 h-12 items-center" 
       @mousemove="listenToMouseMove"
       @mousedown="listenToMouseDown"
       @mouseleave="listenToMouseUp"
@@ -113,14 +113,15 @@ function editModeOn() {
       @touchend="listenToTouchEnd"
       @touchmove="listenToTouchMove"
     >
-      <p class="translate-x-12 w-full text-left break-all" v-if="!editMode">{{note.text}}</p>
+      <p class="translate-x-12 w-full text-left break-all w-40 sm:w-60 lg:w-80 xl:w-100 truncate whitespace-nowrap select-none" v-if="!editMode">{{note.text}}</p>
       <input
         type="text"
         :ref="(el) => { focusMe = el }"
         v-model="props.note.text"
-        class="focus:outline-0"
+        class="outline-none"
         :class="[inputWidthClass]"
         @focusout="editModeOff()"
+        @keyup.enter="editModeOff()"
       >
     </div>
     <button class=" duration-500 bg-red-500 text-white select-none" :class="[widthClass]" @click="props.pinned ? deletePinnedNote() : deleteNote()">

@@ -3,7 +3,8 @@ import { useStore } from '../store/store'
 
 import {ref} from 'vue'
 const props = defineProps({
-  note: Object
+  note: Object,
+  pinned: Boolean
 })
 
 const store = useStore()
@@ -57,6 +58,17 @@ function deleteNote() {
   store.deleteNote(props.note.id)
 }
 
+function pinNote() {
+  store.pinNote(props.note)
+}
+
+function unpinNote() {
+  store.unpinNote(props.note)
+}
+
+function deletePinnedNote() {
+  store.deletePinnedNote(props.note.id)
+}
 
 </script>
 
@@ -74,11 +86,11 @@ function deleteNote() {
     >
       <p class="translate-x-12 w-full text-left break-all">{{note.text}}</p>
     </div>
-    <button class=" duration-500 bg-red-500 text-white" :class="[widthClass]" @click="deleteNote">
+    <button class=" duration-500 bg-red-500 text-white select-none" :class="[widthClass]" @click="props.pinned ? deletePinnedNote() : deleteNote()">
       Delete
     </button>
-    <button class=" duration-500 bg-yellow-500 text-white" :class="[widthClass]">
-      Edit
+    <button class=" duration-500 bg-yellow-500 text-white select-none" :class="[widthClass]" @click="props.pinned ? unpinNote() : pinNote()">
+      {{props.pinned ? 'Unpin' : 'Pin'}}
     </button>
   </div>
 </template>

@@ -18,6 +18,7 @@ import PinnedNotes from './components/PinnedNotes.vue'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 html, body {

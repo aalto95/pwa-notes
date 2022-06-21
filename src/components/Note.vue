@@ -3,7 +3,7 @@ import { useStore } from '../store/store'
 
 import {ref} from 'vue'
 const props = defineProps({
-  note: String
+  note: Object
 })
 
 const store = useStore()
@@ -54,7 +54,7 @@ function listenToTouchMove(e) {
 }
 
 function deleteNote() {
-  store.deleteNote(props.note)
+  store.deleteNote(props.note.id)
 }
 
 
@@ -72,7 +72,7 @@ function deleteNote() {
       @touchend="listenToTouchEnd"
       @touchmove="listenToTouchMove"
     >
-      <p class="translate-x-12 w-full text-left break-all">{{note}}</p>
+      <p class="translate-x-12 w-full text-left break-all">{{note.text}}</p>
     </div>
     <button class=" duration-500 bg-red-500 text-white" :class="[widthClass]" @click="deleteNote">
       Delete

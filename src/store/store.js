@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { v4 as uuid } from 'uuid'
 
 // useStore could be anything like useUser, useCart
 // the first argument is a unique id of the store across your application
@@ -18,12 +19,12 @@ export const useStore = defineStore('counter', {
         this.notes = JSON.parse(localStorage.getItem('notes'))
       }
     },
-    addNote(note) {
-      this.notes.push(note)
+    addNote(text) {
+      this.notes.push({text, id: uuid()})
       localStorage.setItem('notes', JSON.stringify(this.notes))
     },
-    deleteNote(noteToDelete) {
-      this.notes = this.notes.filter(note => note !== noteToDelete)
+    deleteNote(id) {
+      this.notes = this.notes.filter(note => note.id !== id)
       localStorage.setItem('notes', JSON.stringify(this.notes))
     }
   }

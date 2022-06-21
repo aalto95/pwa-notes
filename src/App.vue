@@ -1,9 +1,11 @@
 <script setup>
 import Notes from './components/Notes.vue'
 import AddNote from './components/AddNote.vue'
+import PinnedNotes from './components/PinnedNotes.vue'
 </script>
 
 <template>
+  <PinnedNotes />
   <Notes />
   <AddNote />
 </template>

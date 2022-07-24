@@ -7,13 +7,15 @@ import { Note } from "../models/Note";
 export type RootState = {
   notes: Note[];
   pinnedNotes: Note[];
+  addNotePromptIsActive: boolean;
 };
 
-export const useStore = defineStore("counter", {
+export const useStore = defineStore("notes", {
   state: () => {
     return {
       notes: [],
       pinnedNotes: [],
+      addNotePromptIsActive: false,
     } as RootState;
   },
   actions: {
@@ -71,6 +73,9 @@ export const useStore = defineStore("counter", {
         return pinnedNote;
       });
       localStorage.setItem("pinnedNotes", JSON.stringify(this.pinnedNotes));
+    },
+    toggleAddNotePrompt(bool) {
+      this.addNotePromptIsActive = bool;
     },
   },
 });

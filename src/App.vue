@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import Notes from './components/Notes.vue'
-import AddNote from './components/AddNote.vue'
 import PinnedNotes from './components/PinnedNotes.vue'
+import AddNoteButton from './components/AddNoteButton.vue'
+import AddNotePrompt from './components/AddNotePrompt.vue'
+import { useStore } from './store/store'
+
+const store = useStore()
+
 </script>
 
 <template>
   <PinnedNotes />
   <Notes />
-  <AddNote />
+  <AddNotePrompt v-if="store.addNotePromptIsActive"/>
+  <AddNoteButton />
 </template>
 
 <style>

@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { v4 as uuid } from "uuid";
 import { Note } from "../models/Note";
 // useStore could be anything like useUser, useCart
 // the first argument is a unique id of the store across your application
@@ -32,7 +31,7 @@ export const useStore = defineStore("notes", {
     addNote(text: Note["text"]) {
       this.notes.push({
         text,
-        id: uuid(),
+        id: Crypto.prototype.randomUUID(),
       });
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },

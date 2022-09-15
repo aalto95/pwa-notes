@@ -31,6 +31,12 @@ function allowDrop(ev) {
 </script>
 
 <template>
+  <header
+    v-if="!store.dragAndDropIsActive"
+    class="w-full h-30 flex justify-center items-center bg-black text-white"
+  >
+    <h1 class="text-xl">Notes App (Use Drap And Drop)</h1>
+  </header>
   <div
     v-if="store.dragAndDropIsActive"
     @drop="handleDeleteDrop($event)"
@@ -47,7 +53,6 @@ function allowDrop(ev) {
   >
     Pin / Unpin
   </div>
-  <div v-if="!store.dragAndDropIsActive" class="w-full h-30"></div>
   <PinnedNotes />
   <Notes />
   <AddNotePrompt v-if="store.addNotePromptIsActive" />

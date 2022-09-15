@@ -12,53 +12,11 @@ const props = defineProps<Props>();
 
 const store = useStore();
 
-const downX = ref(0);
-const upX = ref(0);
 const isCurrentlyTouched = ref(false);
 const widthClass = ref("w-0");
 const inputWidthClass = ref("w-0");
 const editMode = ref(false);
 const editField = ref<HTMLInputElement | null>(null);
-
-function listenToMouseDown(e) {
-  isCurrentlyTouched.value = true;
-  downX.value = e.clientX;
-}
-
-function listenToMouseUp(e) {
-  isCurrentlyTouched.value = false;
-  upX.value = e.clientX;
-}
-
-function listenToMouseMove(e) {
-  if (isCurrentlyTouched.value) {
-    if (downX.value - e.clientX > 50) {
-      widthClass.value = "w-32";
-    } else if (e.clientX - downX.value > 50) {
-      widthClass.value = "w-0";
-    }
-  }
-}
-
-function listenToTouchStart(e) {
-  isCurrentlyTouched.value = true;
-  downX.value = e.touches[0].clientX;
-}
-
-function listenToTouchEnd(e) {
-  isCurrentlyTouched.value = false;
-  downX.value = e.changedTouches[0].clientX;
-}
-
-function listenToTouchMove(e) {
-  if (isCurrentlyTouched.value) {
-    if (downX.value - e.changedTouches[0].clientX > 50) {
-      widthClass.value = "w-32";
-    } else if (e.changedTouches[0].clientX - downX.value > 50) {
-      widthClass.value = "w-0";
-    }
-  }
-}
 
 function deleteNote() {
   store.deleteNote(props.note.id);
@@ -119,6 +77,16 @@ function handleDragEnd(ev) {
   ev.preventDefault();
   store.toggleDragAndDrop(false);
 }
+
+function openActions() {
+  isCurrentlyTouched.value = true;
+  widthClass.value = "w-48";
+}
+
+function closeActions() {
+  isCurrentlyTouched.value = false;
+  widthClass.value = "w-0";
+}
 </script>
 
 <template>
@@ -129,16 +97,7 @@ function handleDragEnd(ev) {
     @drag="handleDrag($event)"
     @dragend="handleDragEnd($event)"
   >
-    <div
-      class="w-screen flex p-2 h-12 items-center"
-      @mousemove="listenToMouseMove"
-      @mousedown="listenToMouseDown"
-      @mouseleave="listenToMouseUp"
-      @mouseup="listenToMouseUp"
-      @touchstart="listenToTouchStart"
-      @touchend="listenToTouchEnd"
-      @touchmove="listenToTouchMove"
-    >
+    <div class="w-screen flex p-2 h-12 items-center">
       <p
         class="translate-x-12 w-full text-left break-all w-40 sm:w-60 lg:w-80 xl:w-100 truncate whitespace-nowrap select-none"
         v-if="!editMode"
@@ -155,12 +114,19 @@ function handleDragEnd(ev) {
         @keyup.enter="editModeOff()"
       />
     </div>
-    <div
-      class="flex items-center w-4 mr-2"
-      v-if="props.pinned && widthClass === 'w-0'"
-    >
-      <img src="../assets/pin.svg" alt="pin" class="w-4 h-4 select-none" />
+    <div class="flex items-center" v-if="widthClass === 'w-0'">
+      <!-- <img src="../assets/pin.svg" alt="pin" class="w-4 h-4 select-none" /> -->
+      <button class="bg-green-100 h-full w-32" @click="openActions()">
+        <p>Actions</p>
+      </button>
     </div>
+    <button
+      class="duration-500 bg-green-100 text-white select-none text-black"
+      :class="[widthClass]"
+      @click="closeActions()"
+    >
+      Close
+    </button>
     <button
       class="duration-500 bg-red-500 text-white select-none"
       :class="[widthClass]"

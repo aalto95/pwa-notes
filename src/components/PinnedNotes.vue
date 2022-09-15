@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useStore } from '../store/store'
-import Note from './Note.vue'
+import { onMounted } from "vue";
+import { useStore } from "../store/store";
+import Note from "./Note.vue";
 
-const store = useStore()
+const store = useStore();
 
 onMounted(() => {
-  store.getNotes()
-})
-
+  store.getNotes();
+});
 </script>
 
 <template>
-  <div class="w-screen overflow-x-hidden border-b-light-900 mb-2 pb-2 border-b-width-1px" v-if="store.pinnedNotes.length">
-    <Note v-for="pinnedNote in store.pinnedNotes" :note=pinnedNote :key=pinnedNote.id :pinned="true" />
+  <div
+    class="w-screen overflow-x-hidden border-b-light-900 mb-2 pb-2 border-b-width-1px"
+    v-if="store.pinnedNotes.length"
+  >
+    <Note
+      v-for="pinnedNote in store.pinnedNotes"
+      :note="pinnedNote"
+      :key="pinnedNote.id"
+      :pinned="true"
+    />
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

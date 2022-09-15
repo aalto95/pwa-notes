@@ -8,6 +8,7 @@ export type RootState = {
   notes: Note[];
   pinnedNotes: Note[];
   addNotePromptIsActive: boolean;
+  dragAndDropIsActive: boolean;
 };
 
 export const useStore = defineStore("notes", {
@@ -16,6 +17,7 @@ export const useStore = defineStore("notes", {
       notes: [],
       pinnedNotes: [],
       addNotePromptIsActive: false,
+      dragAndDropIsActive: false,
     } as RootState;
   },
   actions: {
@@ -76,6 +78,9 @@ export const useStore = defineStore("notes", {
     },
     toggleAddNotePrompt(bool) {
       this.addNotePromptIsActive = bool;
+    },
+    toggleDragAndDrop(bool) {
+      this.dragAndDropIsActive = bool;
     },
   },
 });

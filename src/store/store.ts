@@ -31,7 +31,7 @@ export const useStore = defineStore("notes", {
     addNote(text: Note["text"]) {
       this.notes.push({
         text,
-        id: Crypto.prototype.randomUUID(),
+        id: self.crypto.randomUUID(),
       });
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },

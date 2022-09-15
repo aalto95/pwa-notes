@@ -36,7 +36,7 @@ function addNote() {
       <div class="flex">
         <input
           v-model="note"
-          @keyup.enter="addNote"
+          @keyup.enter="addNote()"
           placeholder="Add Note"
           type="text"
           class="border-dark-400 border-b-dark-800 p-2 outline-none mr-2 rounded-lg"

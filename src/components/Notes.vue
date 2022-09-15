@@ -14,17 +14,6 @@ function handleDrop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
 }
-
-function allowDrop(ev) {
-  console.log(ev);
-  ev.preventDefault();
-}
-
-function handleDrag(e) {
-  console.log(e);
-  e.preventDefault();
-  e.dataTransfer.setData("text", "");
-}
 </script>
 
 <template>

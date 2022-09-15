@@ -110,9 +110,14 @@ function handleDrag(ev) {
 function handleDragStart(ev) {
   ev.dataTransfer.setData(
     "text/plain",
-    JSON.stringify({ id: props.note.id, pinned: props.pinned })
+    JSON.stringify({ ...props.note, pinned: props.pinned })
   );
   store.toggleDragAndDrop(true);
+}
+
+function handleDragEnd(ev) {
+  ev.preventDefault();
+  store.toggleDragAndDrop(false);
 }
 </script>
 
@@ -122,6 +127,7 @@ function handleDragStart(ev) {
     draggable="true"
     @dragstart="handleDragStart($event)"
     @drag="handleDrag($event)"
+    @dragend="handleDragEnd($event)"
   >
     <div
       class="w-screen flex p-2 h-12 items-center"

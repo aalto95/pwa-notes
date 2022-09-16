@@ -9,8 +9,13 @@ const router = createRouter({
       component: () => import("../views/HomeView.vue"),
     },
     {
-      path: "/:id",
+      path: "/note/:id",
       name: "note",
+      component: () => import("../views/NoteView.vue"),
+    },
+    {
+      path: "/note",
+      name: "new-note",
       component: () => import("../views/NoteView.vue"),
     },
   ],

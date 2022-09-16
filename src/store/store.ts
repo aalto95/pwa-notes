@@ -6,7 +6,6 @@ import { Note } from "../models/Note";
 export type RootState = {
   notes: Note[];
   pinnedNotes: Note[];
-  addNotePromptIsActive: boolean;
   dragAndDropIsActive: boolean;
 };
 
@@ -15,12 +14,11 @@ export const useStore = defineStore("notes", {
     return {
       notes: [],
       pinnedNotes: [],
-      addNotePromptIsActive: false,
       dragAndDropIsActive: false,
     } as RootState;
   },
   actions: {
-    getNotes() {
+    getNotes(): void {
       if (localStorage.getItem("notes") !== null) {
         this.notes = JSON.parse(localStorage.getItem("notes")!);
       }
@@ -28,19 +26,19 @@ export const useStore = defineStore("notes", {
         this.pinnedNotes = JSON.parse(localStorage.getItem("pinnedNotes")!);
       }
     },
-    addNote(note: Partial<Note>) {
+    addNote(note: Partial<Note>): void {
       this.notes.push({
         ...note,
         id: self.crypto.randomUUID(),
       });
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },
-    pinNote(note: Note) {
+    pinNote(note: Note): void {
       this.deleteNote(note.id);
       this.pinnedNotes.push(note);
       localStorage.setItem("pinnedNotes", JSON.stringify(this.pinnedNotes));
     },
-    unpinNote(note: Note) {
+    unpinNote(note: Note): void {
       this.pinnedNotes = this.pinnedNotes.filter(
         (pinnedNote) => pinnedNote.id !== note.id
       );
@@ -48,17 +46,17 @@ export const useStore = defineStore("notes", {
       localStorage.setItem("pinnedNotes", JSON.stringify(this.pinnedNotes));
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },
-    deletePinnedNote(id: Note["id"]) {
+    deletePinnedNote(id: Note["id"]): void {
       this.pinnedNotes = this.pinnedNotes.filter(
         (pinnedNote) => pinnedNote.id !== id
       );
       localStorage.setItem("pinnedNotes", JSON.stringify(this.pinnedNotes));
     },
-    deleteNote(id: Note["id"]) {
+    deleteNote(id: Note["id"]): void {
       this.notes = this.notes.filter((note) => note.id !== id);
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },
-    editNote(changedNote: Note) {
+    editNote(changedNote: Note): void {
       this.notes = this.notes.map((note) => {
         if (note.id === changedNote.id) {
           return changedNote;
@@ -67,7 +65,7 @@ export const useStore = defineStore("notes", {
       });
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },
-    editPinnedNote(changedPinnedNote: Note) {
+    editPinnedNote(changedPinnedNote: Note): void {
       this.pinnedNotes = this.pinnedNotes.map((pinnedNote) => {
         if (pinnedNote.id === changedPinnedNote.id) {
           return changedPinnedNote;
@@ -76,13 +74,10 @@ export const useStore = defineStore("notes", {
       });
       localStorage.setItem("pinnedNotes", JSON.stringify(this.pinnedNotes));
     },
-    toggleAddNotePrompt(bool) {
-      this.addNotePromptIsActive = bool;
-    },
-    toggleDragAndDrop(bool) {
+    toggleDragAndDrop(bool): void {
       this.dragAndDropIsActive = bool;
     },
-    getNoteById(id: Note["id"]) {
+    getNoteById(id: Note["id"]): Note {
       return (
         this.notes.find((note) => note.id === id) ||
         this.pinnedNotes.find((note) => note.id === id)

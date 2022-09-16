@@ -21,7 +21,6 @@ const props = defineProps<Props>();
 const store = useStore();
 
 const isActionBarActive = ref(false);
-const editMode = ref(false);
 
 function deleteNote() {
   store.deleteNote(props.note.id);
@@ -79,7 +78,6 @@ function closeActions() {
     >
       <p
         class="translate-x-12 w-full text-left break-all w-40 sm:w-60 lg:w-80 xl:w-100 truncate whitespace-nowrap select-none"
-        v-if="!editMode"
       >
         {{ note.title }}
       </p>

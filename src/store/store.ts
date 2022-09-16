@@ -28,9 +28,9 @@ export const useStore = defineStore("notes", {
         this.pinnedNotes = JSON.parse(localStorage.getItem("pinnedNotes")!);
       }
     },
-    addNote(text: Note["text"]) {
+    addNote(note: Partial<Note>) {
       this.notes.push({
-        text,
+        ...note,
         id: self.crypto.randomUUID(),
       });
       localStorage.setItem("notes", JSON.stringify(this.notes));
@@ -44,8 +44,9 @@ export const useStore = defineStore("notes", {
       this.pinnedNotes = this.pinnedNotes.filter(
         (pinnedNote) => pinnedNote.id !== note.id
       );
-      this.addNote(note.text);
+      this.notes.push(note);
       localStorage.setItem("pinnedNotes", JSON.stringify(this.pinnedNotes));
+      localStorage.setItem("notes", JSON.stringify(this.notes));
     },
     deletePinnedNote(id: Note["id"]) {
       this.pinnedNotes = this.pinnedNotes.filter(
@@ -80,6 +81,12 @@ export const useStore = defineStore("notes", {
     },
     toggleDragAndDrop(bool) {
       this.dragAndDropIsActive = bool;
+    },
+    getNoteById(id: Note["id"]) {
+      return (
+        this.notes.find((note) => note.id === id) ||
+        this.pinnedNotes.find((note) => note.id === id)
+      );
     },
   },
 });

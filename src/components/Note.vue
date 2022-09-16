@@ -101,12 +101,15 @@ function closeActions() {
     @drag="handleDrag($event)"
     @dragend="handleDragEnd($event)"
   >
-    <div class="flex p-2 items-center h-full">
+    <router-link
+      class="flex p-2 items-center h-full"
+      :to="{ name: 'note', params: { id: note.id } }"
+    >
       <p
         class="translate-x-12 w-full text-left break-all w-40 sm:w-60 lg:w-80 xl:w-100 truncate whitespace-nowrap select-none"
         v-if="!editMode"
       >
-        {{ note.text }}
+        {{ note.title }}
       </p>
       <input
         type="text"
@@ -117,7 +120,7 @@ function closeActions() {
         @focusout="editModeOff()"
         @keyup.enter="editModeOff()"
       />
-    </div>
+    </router-link>
     <div
       class="flex transform absolute right-0 h-12 transition-all duration-300"
       :class="

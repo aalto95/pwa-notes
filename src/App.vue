@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { RouterView } from "vue-router";
+import { useStore } from "./store/store";
+
+const store = useStore();
+
+onMounted(() => {
+  store.getNotes();
+});
 </script>
 
 <template>

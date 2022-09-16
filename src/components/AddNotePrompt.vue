@@ -25,7 +25,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="absolute w-screen h-screen bg-black/[.6] z-10 flex justify-center items-center"
+    class="fixed w-screen h-screen bg-black/[.6] z-10 flex justify-center items-center"
     @click.self="closePrompt"
   >
     <div

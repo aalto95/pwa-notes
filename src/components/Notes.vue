@@ -8,12 +8,6 @@ const store = useStore();
 onMounted(() => {
   store.getNotes();
 });
-
-function handleDrop(ev) {
-  console.log(data);
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-}
 </script>
 
 <template>

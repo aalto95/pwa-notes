@@ -32,22 +32,26 @@ onMounted(() => {
       class="h-30 w-100 flex flex-col justify-between items-center bg-light-300 mx-2 p-2 rounded-xl"
     >
       <div class="flex justify-end w-full">
-        <button @click="closePrompt">
+        <button @click="closePrompt()" class="">
           <XMarkIcon class="h-6 w-6" />
         </button>
       </div>
-      <div class="flex">
+      <div class="flex w-full">
         <input
           v-model="note"
           @keyup.enter="addNote()"
           :ref="(el: any) => { inputField = el }"
           placeholder="Add Note"
           type="text"
-          class="border-dark-400 border-b-dark-800 p-2 outline-none mr-2 rounded-lg"
+          class="border-dark-400 border-b-dark-800 p-2 outline-none mr-2 rounded-lg w-full"
         />
         <button
           class="w-20 text-white font-bold bg-indigo-700 rounded-lg"
           @click="addNote()"
+          :disabled="!note"
+          :class="
+            note ? 'hover:bg-indigo-800' : 'bg-indigo-400 cursor-not-allowed'
+          "
         >
           Add
         </button>

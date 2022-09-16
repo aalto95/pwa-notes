@@ -7,11 +7,13 @@
       v-model="note.title"
       :ref="(el: any) => { titleField = el }"
       @keyup.enter="focusTextField()"
+      placeholder="Title"
     />
     <textarea
-      class="w-full h-96 bg-gray-100 rounded-lg p-2 outline-none"
+      class="text-xl w-full h-96 bg-gray-100 rounded-lg p-2 outline-none"
       v-model="note.text"
       :ref="(el: any) => { textField = el }"
+      placeholder="Text"
     />
     <div class="flex justify-end gap-2">
       <button

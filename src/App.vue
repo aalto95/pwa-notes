@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { RouterView } from "vue-router";
 import { useStore } from "./store/store";
+import Header from "./components/Header.vue";
 
 const store = useStore();
 
@@ -11,6 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <Header />
   <RouterView />
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="note" class="flex w-full flex-col p-5 gap-2">
+  <div v-if="note" class="flex w-full flex-col p-2 gap-2">
     <input
       type="text"
       class="text-xl rounded-lg outline-none border-2 border-dark-400 p-2"

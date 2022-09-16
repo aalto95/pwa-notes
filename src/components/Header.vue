@@ -1,26 +1,28 @@
 <template>
-  <header
-    v-if="!store.dragAndDropIsActive"
-    class="w-full h-30 flex justify-center items-center bg-black text-white"
-  >
-    <h1 class="text-xl">Notes App (Use Drap And Drop)</h1>
+  <header class="w-full h-15 text-white flex">
+    <div v-if="store.dragAndDropIsActive" class="flex w-full">
+      <div
+        @drop="handleDeleteDrop($event)"
+        @dragover="allowDrop($event)"
+        class="w-1/2 h-15 flex justify-center items-center bg-red-100 border-2 border-dashed border-red-300"
+      >
+        <p class="text-red-500">Delete</p>
+      </div>
+      <div
+        @drop="handlePinDrop($event)"
+        @dragover="allowDrop($event)"
+        class="w-1/2 h-15 flex justify-center items-center bg-yellow-100 border-2 border-dashed border-yellow-300"
+      >
+        <p class="text-yellow-500">Pin / Unpin</p>
+      </div>
+    </div>
+    <h1
+      v-else
+      class="text-xl bg-black w-full h-full flex justify-center items-center"
+    >
+      Notes App (With Drag And Drop)
+    </h1>
   </header>
-  <div
-    v-if="store.dragAndDropIsActive"
-    @drop="handleDeleteDrop($event)"
-    @dragover="allowDrop($event)"
-    class="w-full h-15 flex justify-center items-center bg-red-100 border-2 border-dashed border-red-300"
-  >
-    Delete
-  </div>
-  <div
-    v-if="store.dragAndDropIsActive"
-    @drop="handlePinDrop($event)"
-    @dragover="allowDrop($event)"
-    class="w-full h-15 flex justify-center items-center bg-yellow-100 border-2 border-dashed border-yellow-300"
-  >
-    Pin / Unpin
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -30,7 +32,6 @@ const store = useStore();
 
 function handleDeleteDrop(ev) {
   ev.preventDefault();
-  console.log(ev);
   const noteReference = JSON.parse(ev.dataTransfer.getData("text/plain"));
   noteReference.pinned
     ? store.deletePinnedNote(noteReference.id)
@@ -39,7 +40,6 @@ function handleDeleteDrop(ev) {
 
 function handlePinDrop(ev) {
   ev.preventDefault();
-  console.log(ev);
   const noteReference = JSON.parse(ev.dataTransfer.getData("text/plain"));
   noteReference.pinned
     ? store.unpinNote(noteReference)

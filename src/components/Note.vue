@@ -69,7 +69,6 @@ function editModeOn() {
 
 function handleDrag(ev) {
   ev.preventDefault();
-  console.log(ev);
 }
 
 function handleDragStart(ev) {

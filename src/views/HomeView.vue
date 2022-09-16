@@ -1,5 +1,4 @@
 <template>
-  <Header />
   <PinnedNotes />
   <Notes />
   <AddNotePrompt v-if="store.addNotePromptIsActive" />
@@ -12,7 +11,6 @@ import PinnedNotes from "../components/PinnedNotes.vue";
 import AddNoteButton from "../components/AddNoteButton.vue";
 import AddNotePrompt from "../components/AddNotePrompt.vue";
 import { useStore } from "../store/store";
-import Header from "../components/Header.vue";
 
 const store = useStore();
 </script>

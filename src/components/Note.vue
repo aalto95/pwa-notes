@@ -21,9 +21,7 @@ const props = defineProps<Props>();
 const store = useStore();
 
 const isActionBarActive = ref(false);
-const inputWidthClass = ref("w-0");
 const editMode = ref(false);
-const editField = ref<HTMLInputElement | null>(null);
 
 function deleteNote() {
   store.deleteNote(props.note.id);
@@ -39,32 +37,6 @@ function unpinNote() {
 
 function deletePinnedNote() {
   store.deletePinnedNote(props.note.id);
-}
-
-function editPinnedNote() {
-  store.editPinnedNote(props.note);
-}
-
-function editNote() {
-  store.editNote(props.note);
-}
-
-function editModeOff() {
-  editMode.value = false;
-  inputWidthClass.value = "w-0";
-  if (props.pinned) {
-    editPinnedNote();
-  } else {
-    editNote();
-  }
-}
-
-function editModeOn() {
-  editMode.value = true;
-  isActionBarActive.value = false;
-  inputWidthClass.value = "w-48";
-
-  editField.value!.focus();
 }
 
 function handleDrag(ev) {
@@ -111,15 +83,6 @@ function closeActions() {
       >
         {{ note.title }}
       </p>
-      <input
-        type="text"
-        :ref="(el: any) => { editField = el }"
-        v-model="props.note.text"
-        class="outline-none"
-        :class="[inputWidthClass]"
-        @focusout="editModeOff()"
-        @keyup.enter="editModeOff()"
-      />
     </router-link>
     <div
       class="flex transform absolute right-0 h-12 transition-all duration-300"
@@ -147,12 +110,12 @@ function closeActions() {
         <StarIcon v-if="props.pinned" class="h-6 w-6" />
         <StarIconOutline v-else class="h-6 w-6" />
       </button>
-      <button
+      <router-link
+        :to="{ name: 'note', params: { id: note.id } }"
         class="duration-500 bg-green-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
-        @click="editModeOn()"
       >
         <PencilIcon class="h-5 w-5" />
-      </button>
+      </router-link>
     </div>
   </div>
 </template>

@@ -2,6 +2,14 @@
 import { useStore } from "../store/store";
 import { ref } from "vue";
 import { Note } from "../models/Note";
+import {
+  TrashIcon,
+  StarIcon,
+  PencilIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon,
+} from "@heroicons/vue/24/solid";
+import { StarIcon as StarIconOutline } from "@heroicons/vue/24/outline";
 
 interface Props {
   note: Note;
@@ -13,7 +21,6 @@ const props = defineProps<Props>();
 const store = useStore();
 
 const isActionBarActive = ref(false);
-const widthClass = ref("w-0");
 const inputWidthClass = ref("w-0");
 const editMode = ref(false);
 const editField = ref<HTMLInputElement | null>(null);
@@ -115,32 +122,34 @@ function closeActions() {
     <div
       class="flex transform absolute right-0 h-12 transition-all duration-300"
       :class="
-        isActionBarActive ? 'translate-x-0' : 'translate-x-54 md:translate-x-96'
+        isActionBarActive ? 'translate-x-0' : 'translate-x-36 md:translate-x-72'
       "
     >
       <button
-        class="bg-green-100 w-18 md:w-32"
+        class="w-12 flex justify-center items-center"
         @click="isActionBarActive ? closeActions() : openActions()"
       >
-        <p>{{ isActionBarActive ? "Close" : "More" }}</p>
+        <ChevronRightIcon class="h-6 w-6" v-if="isActionBarActive" />
+        <ChevronLeftIcon v-else class="h-6 w-6" />
       </button>
       <button
-        class="duration-500 bg-red-500 text-white select-none w-18 md:w-32"
+        class="duration-500 bg-red-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
         @click="props.pinned ? deletePinnedNote() : deleteNote()"
       >
-        Delete
+        <TrashIcon class="h-6 w-6" />
       </button>
       <button
-        class="duration-500 bg-yellow-500 text-white select-none w-18 md:w-32"
+        class="duration-500 bg-yellow-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
         @click="props.pinned ? unpinNote() : pinNote()"
       >
-        {{ props.pinned ? "Unpin" : "Pin" }}
+        <StarIcon v-if="props.pinned" class="h-6 w-6" />
+        <StarIconOutline v-else class="h-6 w-6" />
       </button>
       <button
-        class="duration-500 bg-green-500 text-white select-none w-18 md:w-32"
+        class="duration-500 bg-green-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
         @click="editModeOn()"
       >
-        Edit
+        <PencilIcon class="h-5 w-5" />
       </button>
     </div>
   </div>

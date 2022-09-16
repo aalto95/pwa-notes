@@ -37,4 +37,8 @@ body {
   box-sizing: border-box;
   overflow: hidden;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
 </style>

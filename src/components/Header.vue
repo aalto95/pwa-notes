@@ -18,7 +18,7 @@
     </div>
     <h1
       v-else
-      class="text-xl bg-black w-full h-full flex justify-center items-center"
+      class="text-xl bg-black w-full h-full flex justify-center items-center text-center"
     >
       Notes App (With Drag And Drop)
     </h1>

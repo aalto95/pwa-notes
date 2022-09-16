@@ -12,7 +12,7 @@ const props = defineProps<Props>();
 
 const store = useStore();
 
-const isCurrentlyTouched = ref(false);
+const isActionBarActive = ref(false);
 const widthClass = ref("w-0");
 const inputWidthClass = ref("w-0");
 const editMode = ref(false);
@@ -54,9 +54,9 @@ function editModeOff() {
 
 function editModeOn() {
   editMode.value = true;
-  widthClass.value = "w-0";
+  isActionBarActive.value = false;
   inputWidthClass.value = "w-48";
-  isCurrentlyTouched.value = false;
+
   editField.value!.focus();
 }
 
@@ -79,25 +79,23 @@ function handleDragEnd(ev) {
 }
 
 function openActions() {
-  isCurrentlyTouched.value = true;
-  widthClass.value = "w-48";
+  isActionBarActive.value = true;
 }
 
 function closeActions() {
-  isCurrentlyTouched.value = false;
-  widthClass.value = "w-0";
+  isActionBarActive.value = false;
 }
 </script>
 
 <template>
   <div
-    class="flex touch-none"
+    class="flex touch-none w-full justify-between items-center h-12"
     draggable="true"
     @dragstart="handleDragStart($event)"
     @drag="handleDrag($event)"
     @dragend="handleDragEnd($event)"
   >
-    <div class="w-screen flex p-2 h-12 items-center">
+    <div class="flex p-2 items-center h-full">
       <p
         class="translate-x-12 w-full text-left break-all w-40 sm:w-60 lg:w-80 xl:w-100 truncate whitespace-nowrap select-none"
         v-if="!editMode"
@@ -114,40 +112,37 @@ function closeActions() {
         @keyup.enter="editModeOff()"
       />
     </div>
-    <div class="flex items-center" v-if="widthClass === 'w-0'">
-      <!-- <img src="../assets/pin.svg" alt="pin" class="w-4 h-4 select-none" /> -->
-      <button class="bg-green-100 h-full w-32" @click="openActions()">
-        <p>Actions</p>
+    <div
+      class="flex transform absolute right-0 h-12 transition-all duration-300"
+      :class="
+        isActionBarActive ? 'translate-x-0' : 'translate-x-54 md:translate-x-96'
+      "
+    >
+      <button
+        class="bg-green-100 w-18 md:w-32"
+        @click="isActionBarActive ? closeActions() : openActions()"
+      >
+        <p>{{ isActionBarActive ? "Close" : "More" }}</p>
+      </button>
+      <button
+        class="duration-500 bg-red-500 text-white select-none w-18 md:w-32"
+        @click="props.pinned ? deletePinnedNote() : deleteNote()"
+      >
+        Delete
+      </button>
+      <button
+        class="duration-500 bg-yellow-500 text-white select-none w-18 md:w-32"
+        @click="props.pinned ? unpinNote() : pinNote()"
+      >
+        {{ props.pinned ? "Unpin" : "Pin" }}
+      </button>
+      <button
+        class="duration-500 bg-green-500 text-white select-none w-18 md:w-32"
+        @click="editModeOn()"
+      >
+        Edit
       </button>
     </div>
-    <button
-      class="duration-500 bg-green-100 text-white select-none text-black"
-      :class="[widthClass]"
-      @click="closeActions()"
-    >
-      Close
-    </button>
-    <button
-      class="duration-500 bg-red-500 text-white select-none"
-      :class="[widthClass]"
-      @click="props.pinned ? deletePinnedNote() : deleteNote()"
-    >
-      Delete
-    </button>
-    <button
-      class="duration-500 bg-yellow-500 text-white select-none"
-      :class="[widthClass]"
-      @click="props.pinned ? unpinNote() : pinNote()"
-    >
-      {{ props.pinned ? "Unpin" : "Pin" }}
-    </button>
-    <button
-      class="duration-500 bg-green-500 text-white select-none"
-      :class="[widthClass]"
-      @click="editModeOn()"
-    >
-      Edit
-    </button>
   </div>
 </template>
 

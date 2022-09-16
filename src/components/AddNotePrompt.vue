@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useStore } from "../store/store";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 const store = useStore();
 const note = ref("");
@@ -14,6 +15,12 @@ function addNote() {
   store.addNote(note.value);
   closePrompt();
 }
+
+const inputField = ref<HTMLInputElement | null>(null);
+
+onMounted(() => {
+  inputField.value?.focus();
+});
 </script>
 
 <template>
@@ -26,17 +33,14 @@ function addNote() {
     >
       <div class="flex justify-end w-full">
         <button @click="closePrompt">
-          <img
-            src="../assets/add.svg"
-            alt="close"
-            class="transform rotate-45"
-          />
+          <XMarkIcon class="h-6 w-6" />
         </button>
       </div>
       <div class="flex">
         <input
           v-model="note"
           @keyup.enter="addNote()"
+          :ref="(el: any) => { inputField = el }"
           placeholder="Add Note"
           type="text"
           class="border-dark-400 border-b-dark-800 p-2 outline-none mr-2 rounded-lg"

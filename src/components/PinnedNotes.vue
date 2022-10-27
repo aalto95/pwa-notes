@@ -6,9 +6,10 @@ const store = useStore();
 </script>
 
 <template>
-  <div
+  <ul
     class="w-screen overflow-x-hidden border-b-light-900 mb-2 pb-2 border-b-width-1px"
     v-if="store.pinnedNotes.length"
+    v-auto-animate
   >
     <Note
       v-for="pinnedNote in store.pinnedNotes"
@@ -16,7 +17,7 @@ const store = useStore();
       :key="pinnedNote.id"
       :pinned="true"
     />
-  </div>
+  </ul>
 </template>
 
 <style scoped></style>

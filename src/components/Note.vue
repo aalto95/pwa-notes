@@ -72,7 +72,7 @@ function toggleText() {
 </script>
 
 <template>
-  <div
+  <li
     class="flex touch-none w-full justify-between"
     draggable="true"
     @dragstart="handleDragStart($event)"
@@ -133,7 +133,7 @@ function toggleText() {
         {{ note.text }}
       </p>
     </div>
-  </div>
+  </li>
 </template>
 
 <style scoped></style>

@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.3",
     "@heroicons/vue": "^2.0.11",
     "pinia": "^2.0.14",
     "typescript": "^4.7.4",

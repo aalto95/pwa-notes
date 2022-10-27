@@ -6,9 +6,9 @@ const store = useStore();
 </script>
 
 <template>
-  <div class="w-screen overflow-x-hidden">
+  <ul class="w-screen overflow-x-hidden" v-auto-animate>
     <Note v-for="note in store.notes" :note="note" :key="note.id" />
-  </div>
+  </ul>
 </template>
 
 <style scoped></style>

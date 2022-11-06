@@ -1,23 +1,26 @@
 <script setup lang="ts">
 import { useStore } from "../store/store";
 import Note from "./Note.vue";
+import draggable from "vuedraggable";
+import { ref } from "vue";
 
 const store = useStore();
+const drag = ref(false);
 </script>
 
 <template>
-  <ul
+  <draggable
     class="w-screen overflow-x-hidden border-b-light-900 mb-2 pb-2 border-b-width-1px"
     v-if="store.pinnedNotes.length"
-    v-auto-animate
+    v-model="store.pinnedNotes"
+    item-key="id"
+    @start="drag = true"
+    @end="drag = false"
   >
-    <Note
-      v-for="pinnedNote in store.pinnedNotes"
-      :note="pinnedNote"
-      :key="pinnedNote.id"
-      :pinned="true"
-    />
-  </ul>
+    <template #item="{ element }">
+      <Note :note="element" :pinned="true" />
+    </template>
+  </draggable>
 </template>
 
 <style scoped></style>

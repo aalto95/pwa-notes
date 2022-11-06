@@ -1,5 +1,5 @@
 <template>
-  <div v-if="note" class="flex w-full flex-col p-2 gap-2">
+  <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
     <h1 class="text-3xl font-bold">{{ id ? "Edit" : "Add" }} note</h1>
     <input
       type="text"
@@ -91,6 +91,8 @@ function addNote() {
       note.value.imageId = id;
       store.addNote(note.value);
     };
+  } else {
+    store.addNote(note.value);
   }
   router.push("/");
 }

@@ -12,7 +12,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="overflow-y-auto h-screen">
+  <div class="overflow-y-auto h-screen w-screen">
     <Header />
     <RouterView />
   </div>
@@ -38,9 +38,5 @@ body {
   box-sizing: border-box;
   position: relative;
   overflow-x: hidden;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 </style>

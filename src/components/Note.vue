@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from "../store/store";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Note } from "../models/Note";
 import {
   TrashIcon,
@@ -12,6 +12,9 @@ import {
   ChevronUpIcon,
 } from "@heroicons/vue/24/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/vue/24/outline";
+import { liveQuery } from "dexie";
+import { useObservable } from "@vueuse/rxjs";
+import { db } from "../db/dexie";
 
 interface Props {
   note: Note;
@@ -19,11 +22,11 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
 const store = useStore();
 
 const isActionBarActive = ref(false);
 const isTextVisible = ref(false);
+const imageSrc = ref<string>("");
 
 function deleteNote() {
   store.deleteNote(props.note.id);
@@ -69,6 +72,23 @@ function closeActions() {
 function toggleText() {
   isTextVisible.value = !isTextVisible.value;
 }
+
+function loadImage() {
+  useObservable(
+    liveQuery(async () => {
+      return await db.files
+        .where("id")
+        .equals(props.note.imageId)
+        .first((file) => {
+          imageSrc.value = "data:image/jpeg;base64," + btoa(file.data);
+        });
+    })
+  );
+}
+
+onMounted(() => {
+  loadImage();
+});
 </script>
 
 <template>
@@ -129,9 +149,12 @@ function toggleText() {
           </router-link>
         </div>
       </div>
-      <p v-if="isTextVisible" class="text-left break-words mx-4">
-        {{ note.text }}
-      </p>
+      <div v-if="isTextVisible">
+        <p class="text-left break-words mx-4">
+          {{ note.text }}
+        </p>
+        <img :src="imageSrc!" alt="" />
+      </div>
     </div>
   </li>
 </template>

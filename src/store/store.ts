@@ -7,6 +7,7 @@ export type RootState = {
   notes: Note[];
   pinnedNotes: Note[];
   dragAndDropIsActive: boolean;
+  db: IDBDatabase | null;
 };
 
 export const useStore = defineStore("notes", {
@@ -15,6 +16,7 @@ export const useStore = defineStore("notes", {
       notes: [],
       pinnedNotes: [],
       dragAndDropIsActive: false,
+      db: null,
     } as RootState;
   },
   actions: {
@@ -82,6 +84,9 @@ export const useStore = defineStore("notes", {
         this.notes.find((note) => note.id === id) ||
         this.pinnedNotes.find((note) => note.id === id)
       );
+    },
+    setDatabase(db: IDBDatabase): void {
+      this.db = db;
     },
   },
 });

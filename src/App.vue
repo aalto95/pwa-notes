@@ -6,7 +6,7 @@ import Header from "./components/Header.vue";
 
 const store = useStore();
 
-onMounted(() => {
+onMounted(async () => {
   store.getNotes();
 });
 </script>

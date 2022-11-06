@@ -15,6 +15,7 @@
       :ref="(el: any) => { textField = el }"
       placeholder="Text"
     />
+    <input type="file" @change="setFile" />
     <div class="flex justify-end gap-2">
       <button
         class="rounded-lg bg-gray-100 hover:bg-gray-200 w-20 h-12"
@@ -41,6 +42,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { db } from "../db/dexie";
 import { Note } from "../models/Note";
 import router from "../router";
 import { useStore } from "../store/store";
@@ -50,6 +52,12 @@ const store = useStore();
 
 const id = route.params.id;
 let note;
+const file = ref<File | null>(null);
+
+function setFile(event: Event) {
+  const target = event.target as HTMLInputElement;
+  file.value = target.files![0];
+}
 
 if (id) {
   note = store.getNoteById(id.toString());
@@ -69,7 +77,21 @@ function editNote() {
 }
 
 function addNote() {
-  store.addNote(note.value as Partial<Note>);
+  if (file.value) {
+    const reader = new FileReader();
+    reader.readAsBinaryString(file.value);
+    reader.onload = (e) => {
+      let bits = e.target?.result;
+      const id = self.crypto.randomUUID();
+      const file = db.files.add({
+        data: bits as string,
+        id,
+        createdAt: new Date(),
+      });
+      note.value.imageId = id;
+      store.addNote(note.value);
+    };
+  }
   router.push("/");
 }
 

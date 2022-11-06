@@ -91,6 +91,41 @@ onMounted(() => {
 });
 
 function handleTouch(event: TouchEvent) {
+  let touches = event.changedTouches,
+    first = touches[0],
+    type = "";
+  switch (event.type) {
+    case "touchstart":
+      type = "mousedown";
+      break;
+    case "touchmove":
+      type = "mousemove";
+      break;
+    case "touchend":
+      type = "mouseup";
+      break;
+    default:
+      return;
+  }
+  const simulatedEvent = document.createEvent("MouseEvent");
+  simulatedEvent.initMouseEvent(
+    type,
+    true,
+    true,
+    window,
+    1,
+    first.screenX,
+    first.screenY,
+    first.clientX,
+    first.clientY,
+    false,
+    false,
+    false,
+    false,
+    0 /*left*/,
+    null
+  );
+  first.target.dispatchEvent(simulatedEvent);
   event.preventDefault();
 }
 </script>
@@ -103,6 +138,9 @@ function handleTouch(event: TouchEvent) {
     @drag="handleDrag($event)"
     @dragend="handleDragEnd($event)"
     @touchstart="handleTouch($event)"
+    @touchcancel="handleTouch($event)"
+    @touchend="handleTouch($event)"
+    @touchmove="handleTouch($event)"
   >
     <div class="flex flex-col h-full w-full justify-center">
       <div class="flex w-full min-h-12">

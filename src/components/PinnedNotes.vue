@@ -7,7 +7,7 @@ const store = useStore();
 
 <template>
   <ul
-    class="w-screen overflow-x-hidden border-b-light-900 mb-2 pb-2 border-b-width-1px pt-15"
+    class="w-screen overflow-x-hidden border-b-light-900 mb-2 pb-2 border-b-width-1px"
     v-if="store.pinnedNotes.length"
     v-auto-animate
   >

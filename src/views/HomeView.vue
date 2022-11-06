@@ -1,6 +1,8 @@
 <template>
-  <PinnedNotes />
-  <Notes />
+  <div class="mt-15">
+    <PinnedNotes />
+    <Notes />
+  </div>
   <AddNoteButton />
 </template>
 

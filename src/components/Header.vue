@@ -1,5 +1,5 @@
 <template>
-  <header class="w-full h-15 text-white flex">
+  <header class="w-full h-15 text-white flex fixed z-10">
     <div v-if="store.dragAndDropIsActive" class="flex w-full">
       <div
         @drop="handleDeleteDrop($event)"

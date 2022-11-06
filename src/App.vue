@@ -12,8 +12,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header />
-  <RouterView />
+  <div class="overflow-y-auto h-screen">
+    <Header />
+    <RouterView />
+  </div>
 </template>
 
 <style>

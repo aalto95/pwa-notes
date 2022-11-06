@@ -103,9 +103,6 @@ function handleTouch(event: TouchEvent) {
     @drag="handleDrag($event)"
     @dragend="handleDragEnd($event)"
     @touchstart="handleTouch($event)"
-    @touchcancel="handleTouch($event)"
-    @touchend="handleTouch($event)"
-    @touchmove="handleTouch($event)"
   >
     <div class="flex flex-col h-full w-full justify-center">
       <div class="flex w-full min-h-12">

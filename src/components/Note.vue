@@ -44,23 +44,6 @@ function deletePinnedNote() {
   store.deletePinnedNote(props.note.id);
 }
 
-function handleDrag(ev) {
-  ev.preventDefault();
-}
-
-function handleDragStart(ev) {
-  ev.dataTransfer.setData(
-    "text/plain",
-    JSON.stringify({ ...props.note, pinned: props.pinned })
-  );
-  store.toggleDragAndDrop(true);
-}
-
-function handleDragEnd(ev) {
-  ev.preventDefault();
-  store.toggleDragAndDrop(false);
-}
-
 function openActions() {
   isActionBarActive.value = true;
 }
@@ -93,11 +76,7 @@ onMounted(() => {
 
 <template>
   <li
-    class="flex touch-none w-full justify-between"
-    draggable="true"
-    @dragstart="handleDragStart($event)"
-    @drag="handleDrag($event)"
-    @dragend="handleDragEnd($event)"
+    class="flex w-full justify-between transform ease-in-out transition duration-500"
   >
     <div class="flex flex-col h-full w-full justify-center">
       <div class="flex w-full min-h-12">

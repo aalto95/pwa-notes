@@ -4,21 +4,18 @@ import { onMounted, ref } from "vue";
 import { Note } from "../models/Note";
 import {
   TrashIcon,
-  StarIcon,
   PencilIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/vue/24/solid";
-import { StarIcon as StarIconOutline } from "@heroicons/vue/24/outline";
 import { liveQuery } from "dexie";
 import { useObservable } from "@vueuse/rxjs";
 import { db } from "../db/dexie";
 
 interface Props {
   note: Note;
-  pinned?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -30,18 +27,6 @@ const imageSrc = ref<string>("");
 
 function deleteNote() {
   store.deleteNote(props.note.id);
-}
-
-function pinNote() {
-  store.pinNote(props.note);
-}
-
-function unpinNote() {
-  store.unpinNote(props.note);
-}
-
-function deletePinnedNote() {
-  store.deletePinnedNote(props.note.id);
 }
 
 function openActions() {
@@ -75,11 +60,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <li
-    class="flex w-full justify-between transform ease-in-out transition duration-500"
-  >
+  <li class="flex w-full justify-between cursor-move">
     <div class="flex flex-col h-full w-full justify-center">
-      <div class="flex w-full min-h-12">
+      <div
+        class="flex w-full min-h-12"
+        :class="note.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
+      >
         <p
           class="flex w-8/12 items-center break-all select-none font-semi-bold ml-4"
         >
@@ -90,7 +76,7 @@ onMounted(() => {
           :class="
             isActionBarActive
               ? 'translate-x-0'
-              : 'translate-x-36 md:translate-x-72'
+              : 'translate-x-24 md:translate-x-48'
           "
         >
           <button
@@ -109,16 +95,9 @@ onMounted(() => {
           </button>
           <button
             class="duration-500 bg-red-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
-            @click="props.pinned ? deletePinnedNote() : deleteNote()"
+            @click="deleteNote()"
           >
             <TrashIcon class="h-6 w-6" />
-          </button>
-          <button
-            class="duration-500 bg-yellow-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
-            @click="props.pinned ? unpinNote() : pinNote()"
-          >
-            <StarIcon v-if="props.pinned" class="h-6 w-6" />
-            <StarIconOutline v-else class="h-6 w-6" />
           </button>
           <router-link
             :to="{ name: 'note', params: { id: note.id } }"

@@ -84,7 +84,23 @@ const titleField = ref<HTMLInputElement | null>(null);
 const textField = ref<HTMLInputElement | null>(null);
 
 function editNote() {
-  store.editNote(note as Note);
+  if (file.value) {
+    const reader = new FileReader();
+    reader.readAsBinaryString(file.value);
+    reader.onload = (e) => {
+      let bits = e.target?.result;
+      const id = self.crypto.randomUUID();
+      const file = db.files.add({
+        data: bits as string,
+        id,
+        createdAt: new Date(),
+      });
+      note.imageId = id;
+      store.editNote(note as Note);
+    };
+  } else {
+    store.editNote(note as Note);
+  }
   router.push("/");
 }
 

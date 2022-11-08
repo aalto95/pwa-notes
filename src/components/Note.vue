@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from "../store/store";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { Note } from "../models/Note";
 import {
   TrashIcon,
@@ -58,6 +58,13 @@ function loadImage() {
 onMounted(() => {
   loadImage();
 });
+
+watch(
+  () => props.note.imageId,
+  () => {
+    loadImage();
+  }
+);
 </script>
 
 <template>

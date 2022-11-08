@@ -43,12 +43,13 @@ function toggleText() {
 
 function loadImage() {
   useObservable(
+    // @ts-ignore
     liveQuery(async () => {
       return await db.files
         .where("id")
         .equals(props.note.imageId)
         .first((file) => {
-          imageSrc.value = "data:image/jpeg;base64," + btoa(file.data);
+          imageSrc.value = "data:image/jpeg;base64," + btoa(file!.data);
         });
     })
   );
@@ -96,12 +97,14 @@ onMounted(() => {
           <button
             class="duration-500 bg-red-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
             @click="deleteNote()"
+            :class="isActionBarActive ? 'opacity-100' : 'opacity-0'"
           >
             <TrashIcon class="h-6 w-6" />
           </button>
           <router-link
             :to="{ name: 'note', params: { id: note.id } }"
             class="duration-500 bg-green-500 text-white select-none w-12 md:w-24 flex justify-center items-center"
+            :class="isActionBarActive ? 'opacity-100' : 'opacity-0'"
           >
             <PencilIcon class="h-5 w-5" />
           </router-link>
@@ -111,7 +114,7 @@ onMounted(() => {
         <p class="text-left break-words mx-4">
           {{ note.text }}
         </p>
-        <img :src="imageSrc!" alt="" />
+        <img :src="imageSrc!" alt="image" />
       </div>
     </div>
   </li>

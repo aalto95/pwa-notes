@@ -16,6 +16,10 @@
       placeholder="Text"
     />
     <input type="file" @change="setFile" />
+    <div>
+      <p>Loaded image</p>
+      <img :src="imageSrc" alt="loaded-img" v-if="imageSrc" />
+    </div>
     <div class="flex justify-end gap-2">
       <button
         class="rounded-lg bg-gray-100 hover:bg-gray-200 w-20 h-12"
@@ -40,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+import { useObservable } from "@vueuse/rxjs";
+import { liveQuery } from "dexie";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { db } from "../db/dexie";
@@ -53,9 +59,15 @@ const store = useStore();
 const id = route.params.id;
 let note;
 const file = ref<File | null>(null);
+const imageSrc = ref("");
 
 function setFile(event: Event) {
   const target = event.target as HTMLInputElement;
+  const fr = new FileReader();
+  fr.onload = function (event) {
+    imageSrc.value = event.target?.result as string;
+  };
+  fr.readAsDataURL(target.files![0]);
   file.value = target.files![0];
 }
 
@@ -105,8 +117,23 @@ function focusTextField() {
   textField.value?.focus();
 }
 
+function loadImage() {
+  useObservable(
+    // @ts-ignore
+    liveQuery(async () => {
+      return await db.files
+        .where("id")
+        .equals(note.imageId)
+        .first((file) => {
+          imageSrc.value = "data:image/jpeg;base64," + btoa(file!.data);
+        });
+    })
+  );
+}
+
 onMounted(() => {
   titleField.value?.focus();
+  loadImage();
 });
 </script>
 

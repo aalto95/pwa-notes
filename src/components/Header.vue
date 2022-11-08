@@ -3,15 +3,11 @@
     <h1
       class="text-xl bg-black w-full h-full flex justify-center items-center text-center"
     >
-      Notes App (With Drag And Drop)
+      Notes
     </h1>
   </header>
 </template>
 
-<script setup lang="ts">
-import { useStore } from "../store/store";
-
-const store = useStore();
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

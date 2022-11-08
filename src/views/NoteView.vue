@@ -16,9 +16,9 @@
       placeholder="Text"
     />
     <input type="file" @change="setFile" />
-    <div>
+    <div v-if="imageSrc">
       <p>Loaded image</p>
-      <img :src="imageSrc" alt="loaded-img" v-if="imageSrc" />
+      <img :src="imageSrc" alt="loaded-img" />
     </div>
     <div class="flex justify-end gap-2">
       <button

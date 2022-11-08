@@ -121,7 +121,7 @@ watch(
         <p class="text-left break-words mx-4">
           {{ note.text }}
         </p>
-        <img :src="imageSrc!" alt="image" />
+        <img :src="imageSrc" alt="image" v-if="imageSrc" />
       </div>
     </div>
   </li>

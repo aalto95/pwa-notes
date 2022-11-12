@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { RouterView } from "vue-router";
 import { useStore } from "./store/store";
 import Header from "./components/Header.vue";
+import Notification from "./components/Notification.vue";
 
 const store = useStore();
 
@@ -12,6 +13,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <Notification />
   <Header />
   <RouterView />
 </template>

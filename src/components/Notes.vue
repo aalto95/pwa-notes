@@ -3,7 +3,6 @@ import { useStore } from "../store/store";
 import Note from "./Note.vue";
 import draggable from "vuedraggable";
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
 
 const store = useStore();
 const drag = ref(false);

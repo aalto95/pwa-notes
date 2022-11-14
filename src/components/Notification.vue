@@ -9,7 +9,7 @@
       'bg-red-500': store.notification.type === 2,
     }"
   >
-    <h1 class="font-bold text-3xl">
+    <h1 class="font-bold text-2xl text-white">
       Note
       {{
         store.notification.type === 0
@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { useStore } from "../store/store";
 const store = useStore();
 </script>

@@ -1,3 +1,4 @@
+import { db } from "./../db/dexie";
 import { defineStore } from "pinia";
 import { Note } from "../models/Note";
 import { Notification } from "../models/Notification";
@@ -7,7 +8,6 @@ import { Notification } from "../models/Notification";
 export type RootState = {
   notes: Note[];
   notification: Notification;
-  db: IDBDatabase | null;
 };
 
 export const useStore = defineStore("notes", {
@@ -19,7 +19,6 @@ export const useStore = defineStore("notes", {
         duration: 750,
         visible: false,
       },
-      db: null,
     } as RootState;
   },
   actions: {
@@ -43,10 +42,11 @@ export const useStore = defineStore("notes", {
       this.invokeNotification(0);
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },
-    deleteNote(id: Note["id"]): void {
+    deleteNote(id: Note["id"], imageId: Note["imageId"]): void {
       this.notes = this.notes.filter((note) => note.id !== id);
       this.invokeNotification(2);
       localStorage.setItem("notes", JSON.stringify(this.notes));
+      db.files.where("id").equals(imageId).delete();
     },
     editNote(changedNote: Note): void {
       this.notes = this.notes.map((note) => {
@@ -60,9 +60,6 @@ export const useStore = defineStore("notes", {
     },
     getNoteById(id: Note["id"]): Note {
       return this.notes.find((note) => note.id === id);
-    },
-    setDatabase(db: IDBDatabase): void {
-      this.db = db;
     },
   },
 });

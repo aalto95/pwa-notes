@@ -26,7 +26,7 @@ const isTextVisible = ref(false);
 const imageSrc = ref<string>("");
 
 function deleteNote() {
-  store.deleteNote(props.note.id);
+  store.deleteNote(props.note.id, props.note.imageId);
 }
 
 function openActions() {

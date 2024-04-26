@@ -112,8 +112,8 @@ function addNote() {
       let bits = e.target?.result;
       const id = self.crypto.randomUUID();
       const file = db.files.add({
-        data: bits as string,
         id,
+        data: bits as string,
         createdAt: new Date(),
       });
       note.value.imageId = id;
@@ -135,7 +135,6 @@ function focusTextField() {
 
 function loadImage() {
   useObservable(
-    // @ts-ignore
     liveQuery(async () => {
       return await db.files
         .where("id")
@@ -143,7 +142,7 @@ function loadImage() {
         .first((file) => {
           imageSrc.value = "data:image/jpeg;base64," + btoa(file!.data);
         });
-    })
+    }) as any
   );
 }
 

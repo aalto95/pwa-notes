@@ -21,24 +21,13 @@
       <img :src="imageSrc" alt="loaded-img" />
     </div>
     <div class="flex justify-end gap-2">
-      <button
-        class="rounded-lg bg-gray-100 hover:bg-gray-200 w-20 h-12"
-        @click="cancel()"
-      >
-        Cancel
-      </button>
-      <button
-        class="rounded-lg w-20 h-12 text-white"
+      <Button variant="secondary" @click="cancel()"> Cancel </Button>
+      <Button
         @click="id ? editNote() : addNote()"
-        :disabled="!note.title && !note.text"
-        :class="
-          note.title && note.text
-            ? 'bg-indigo-500 hover:bg-indigo-600'
-            : 'bg-indigo-300 cursor-not-allowed'
-        "
+        :disabled="!note.title || !note.text"
       >
         Save
-      </button>
+      </Button>
     </div>
   </div>
 </template>
@@ -52,6 +41,7 @@ import { db } from "../db/dexie";
 import { Note } from "../models/Note";
 import router from "../router";
 import { useStore } from "../store/store";
+import { Button } from "vue-solitude";
 
 const route = useRoute();
 const store = useStore();

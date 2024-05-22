@@ -4,6 +4,7 @@ import App from "./App.vue";
 import "virtual:windi.css";
 import router from "./router";
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
+import "vue-solitude/dist/style.css";
 
 const app = createApp(App);
 app.use(createPinia());

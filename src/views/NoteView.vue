@@ -4,7 +4,7 @@
     <TextField label="Title" v-model="note.title"></TextField>
     <TextField
       label="Text"
-      style="height: 300px"
+      style="min-height: 300px"
       multiline
       v-model="note.text"
     ></TextField>

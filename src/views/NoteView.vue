@@ -1,20 +1,13 @@
 <template>
   <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
     <h1 class="text-3xl font-bold">{{ id ? "Edit" : "Add" }} note</h1>
-    <input
-      type="text"
-      class="text-xl rounded-lg outline-none border-2 border-dark-400 p-2"
-      v-model="note.title"
-      :ref="(el: any) => { titleField = el }"
-      @keyup.enter="focusTextField()"
-      placeholder="Title"
-    />
-    <textarea
-      class="text-xl w-full h-96 bg-gray-100 rounded-lg p-2 outline-none"
+    <TextField label="Title" v-model="note.title"></TextField>
+    <TextField
+      label="Text"
+      style="height: 300px"
+      multiline
       v-model="note.text"
-      :ref="(el: any) => { textField = el }"
-      placeholder="Text"
-    />
+    ></TextField>
     <input type="file" @change="setFile" />
     <div v-if="imageSrc">
       <p>Loaded image</p>
@@ -41,7 +34,7 @@ import { db } from "../db/dexie";
 import { Note } from "../models/Note";
 import router from "../router";
 import { useStore } from "../store/store";
-import { Button } from "vue-solitude";
+import { Button, TextField } from "vue-solitude";
 
 const route = useRoute();
 const store = useStore();

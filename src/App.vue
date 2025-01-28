@@ -8,6 +8,17 @@ import Notification from "./components/Notification.vue";
 const store = useStore();
 
 onMounted(async () => {
+  const localStorageDarkMode = localStorage.getItem("darkMode");
+  if (!localStorageDarkMode) {
+    localStorage.setItem("darkMode", "true");
+    store.darkMode = true;
+    document.documentElement.classList.add("my-app-dark");
+  } else if (localStorageDarkMode === "true") {
+    store.darkMode = true;
+    document.documentElement.classList.add("my-app-dark");
+  } else {
+    store.darkMode = false;
+  }
   store.getNotes();
 });
 </script>

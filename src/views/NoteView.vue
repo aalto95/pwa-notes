@@ -1,26 +1,40 @@
 <template>
   <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
     <h1 class="text-3xl font-bold">{{ id ? "Edit" : "Add" }} note</h1>
-    <TextField label="Title" v-model="note.title"></TextField>
-    <TextField
-      label="Text"
-      style="min-height: 300px"
+    <InputText placeholder="Title" v-model="note.title" />
+    <Textarea
+      placeholder="Text"
+      autoResize
+      style="min-height: 300px; resize: none"
       multiline
       v-model="note.text"
-    ></TextField>
-    <input type="file" @change="setFile" />
-    <div v-if="imageSrc">
-      <p>Loaded image</p>
-      <img :src="imageSrc" alt="loaded-img" />
-    </div>
+    ></Textarea>
+    <FileUpload
+      @select="setFile"
+      customUpload
+      auto
+      mode="basic"
+      severity="secondary"
+      accept="image/*"
+      :maxFileSize="1000000"
+      class="content-start"
+    />
+    <span v-if="imageSrc" class="flex justify-center">
+      <img
+        :src="imageSrc"
+        alt="Image"
+        class="shadow-md rounded-xl w-full sm:w-64 flex justify-center"
+        style="filter: grayscale(100%)"
+      />
+    </span>
+
     <div class="flex justify-end gap-2">
-      <Button variant="secondary" @click="cancel()"> Cancel </Button>
+      <Button @click="cancel()" label="Cancel" />
       <Button
+        label="Save"
         @click="id ? editNote() : addNote()"
         :disabled="!note.title || !note.text"
-      >
-        Save
-      </Button>
+      />
     </div>
   </div>
 </template>
@@ -34,7 +48,11 @@ import { db } from "../db/dexie";
 import { Note } from "../models/Note";
 import router from "../router";
 import { useStore } from "../store/store";
-import { Button, TextField } from "vue-solitude";
+import { TextField } from "vue-solitude";
+import Button from "primevue/button";
+import InputText from "primevue/inputtext";
+import Textarea from "primevue/textarea";
+import FileUpload from "primevue/fileupload";
 
 const route = useRoute();
 const store = useStore();
@@ -45,13 +63,12 @@ const file = ref<File | null>(null);
 const imageSrc = ref("");
 
 function setFile(event: Event) {
-  const target = event.target as HTMLInputElement;
   const fr = new FileReader();
   fr.onload = function (event) {
     imageSrc.value = event.target?.result as string;
   };
-  fr.readAsDataURL(target.files![0]);
-  file.value = target.files![0];
+  fr.readAsDataURL(event.files[0]);
+  file.value = event.files[0];
 }
 
 if (id) {

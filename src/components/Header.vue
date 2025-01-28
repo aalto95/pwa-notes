@@ -6,19 +6,13 @@
       <h1 class="text-xl font-bold">Notes</h1>
     </router-link>
     <span class="flex gap-4">
-      <button
-        class="bg-light-500 rounded-full w-10 h-10 flex justify-center items-center"
-        @click="toggleDarkMode()"
-      >
+      <Button rounded class="w-10 h-10" @click="toggleDarkMode()">
         <SunIcon v-if="store.darkMode" class="h-6 w-6 text-black" />
         <MoonIcon v-if="!store.darkMode" class="h-6 w-6 text-black" />
-      </button>
-      <button
-        class="bg-light-500 rounded-full w-10 h-10 flex justify-center items-center"
-        @click="openNewNoteView()"
-      >
+      </Button>
+      <Button rounded class="w-10 h-10" @click="openNewNoteView()">
         <PlusIcon class="h-6 w-6 text-black" />
-      </button>
+      </Button>
     </span>
   </header>
 </template>
@@ -27,6 +21,7 @@
 import router from "../router";
 import { PlusIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/solid";
 import { useStore } from "../store/store";
+import Button from "primevue/button";
 
 const store = useStore();
 

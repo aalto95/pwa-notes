@@ -48,11 +48,10 @@ import { db } from "../db/dexie";
 import { Note } from "../models/Note";
 import router from "../router";
 import { useStore } from "../store/store";
-import { TextField } from "vue-solitude";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Textarea from "primevue/textarea";
-import FileUpload from "primevue/fileupload";
+import FileUpload, { FileUploadSelectEvent } from "primevue/fileupload";
 
 const route = useRoute();
 const store = useStore();
@@ -62,7 +61,7 @@ let note;
 const file = ref<File | null>(null);
 const imageSrc = ref("");
 
-function setFile(event: Event) {
+function setFile(event: FileUploadSelectEvent) {
   const fr = new FileReader();
   fr.onload = function (event) {
     imageSrc.value = event.target?.result as string;

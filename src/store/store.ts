@@ -7,6 +7,7 @@ import { Notification } from "../models/Notification";
 
 export type RootState = {
   notes: Note[];
+  darkMode: boolean | null;
   notification: Notification;
 };
 
@@ -14,6 +15,7 @@ export const useStore = defineStore("notes", {
   state: () => {
     return {
       notes: [],
+      darkMode: null,
       notification: {
         type: 0,
         duration: 750,

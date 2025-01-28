@@ -14,6 +14,9 @@ app.use(autoAnimatePlugin);
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
+    options: {
+      darkModeSelector: ".my-app-dark",
+    },
   },
 });
 app.mount("#app");

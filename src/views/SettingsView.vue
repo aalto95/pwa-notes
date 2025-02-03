@@ -45,7 +45,7 @@ const toast = useToast();
 const confirm = useConfirm();
 
 function exportNotes() {
-  let notes = localStorage.getItem("notes");
+  const notes = localStorage.getItem("notes");
   if (notes && notes !== "[]" && notes !== "null") {
     const notesJson: Note[] = JSON.parse(notes);
     const notesJsonWithoutImageId = notesJson.map(
@@ -89,32 +89,37 @@ function importNotes(event: FileUploadSelectEvent) {
 }
 
 function deleteNotes() {
-  confirm.require({
-    message: "Do you want to delete this record?",
-    header: "Danger Zone",
-    icon: "pi pi-info-circle",
-    rejectLabel: "Cancel",
-    rejectProps: {
-      label: "Cancel",
-      severity: "secondary",
-      outlined: true,
-    },
-    acceptProps: {
-      label: "Delete",
-      severity: "danger",
-    },
-    accept: () => {
-      localStorage.removeItem("notes");
-      store.notes = [];
-      toast.add({
-        severity: "info",
-        summary: "Confirmed",
-        detail: "All notes were deleted",
-        life: 3000,
-      });
-    },
-    reject: () => {},
-  });
+  const notes = localStorage.getItem("notes");
+  if (notes && notes !== "[]" && notes !== "null") {
+    confirm.require({
+      message: "Do you want to delete this record?",
+      header: "Danger Zone",
+      icon: "pi pi-info-circle",
+      rejectLabel: "Cancel",
+      rejectProps: {
+        label: "Cancel",
+        severity: "secondary",
+        outlined: true,
+      },
+      acceptProps: {
+        label: "Delete",
+        severity: "danger",
+      },
+      accept: () => {
+        localStorage.removeItem("notes");
+        store.notes = [];
+        toast.add({
+          severity: "info",
+          summary: "Confirmed",
+          detail: "All notes were deleted",
+          life: 3000,
+        });
+      },
+      reject: () => {},
+    });
+  } else {
+    showNotesNotFoundToast();
+  }
 }
 
 function showNotesNotFoundToast() {

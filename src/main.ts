@@ -1,8 +1,8 @@
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 import App from "./App.vue";
-import "virtual:windi.css";
 import router from "./router";
+import "./main.css";
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";

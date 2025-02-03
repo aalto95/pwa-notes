@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { RouterView } from "vue-router";
+import { Toast } from "primevue";
 import { useStore } from "./store/store";
 import Header from "./components/Header.vue";
 import Notification from "./components/Notification.vue";
@@ -25,6 +26,7 @@ onMounted(async () => {
 
 <template>
   <Notification />
+  <Toast />
   <Header />
   <RouterView />
 </template>

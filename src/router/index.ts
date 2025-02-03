@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import NoteView from "../views/NoteView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -8,17 +6,17 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
+      component: () => import("../views/HomeView.vue"),
     },
     {
       path: "/note",
       name: "new-note",
-      component: NoteView,
+      component: () => import("../views/NoteView.vue"),
       children: [
         {
           path: "/:id",
           name: "note",
-          component: NoteView,
+          component: () => import("../views/NoteView.vue"),
         },
       ],
     },

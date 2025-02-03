@@ -24,10 +24,13 @@
 import { Note } from "@/models/Note";
 import { DocumentArrowDownIcon } from "@heroicons/vue/24/solid";
 import { Button, FileUpload, FileUploadSelectEvent } from "primevue";
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 
 function exportNotes() {
   let notes = localStorage.getItem("notes");
-  if (notes) {
+  if (notes && notes !== "[]" && notes !== "null") {
     const notesJson: Note[] = JSON.parse(notes);
     const notesJsonWithoutImageId = notesJson.map(
       ({ imageId, ...rest }) => rest
@@ -48,6 +51,8 @@ function exportNotes() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  } else {
+    showNotesNotFoundToast();
   }
 }
 
@@ -64,6 +69,15 @@ function importNotes(event: FileUploadSelectEvent) {
   };
 
   reader.readAsText(file);
+}
+
+function showNotesNotFoundToast() {
+  toast.add({
+    severity: "error",
+    summary: "Error",
+    detail: "Notes not found",
+    life: 3000,
+  });
 }
 </script>
 

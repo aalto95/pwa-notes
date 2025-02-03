@@ -2,9 +2,10 @@
   <header
     class="w-full h-15 text-white flex justify-between items-center fixed z-10 bg-black px-4"
   >
-    <router-link to="/">
+    <RouterLink to="/" class="flex gap-2 items-center">
+      <img src="/favicon-32x32.png" alt="Logo" />
       <h1 class="text-xl font-bold">Notes</h1>
-    </router-link>
+    </RouterLink>
     <span class="flex gap-4">
       <Button rounded class="w-10 h-10" @click="toggleDarkMode()">
         <SunIcon v-if="store.darkMode" class="h-6 w-6 text-black" />
@@ -22,6 +23,7 @@ import router from "../router";
 import { PlusIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/solid";
 import { useStore } from "../store/store";
 import Button from "primevue/button";
+import { RouterLink } from "vue-router";
 
 const store = useStore();
 

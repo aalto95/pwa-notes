@@ -25,10 +25,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Notification />
-  <Toast />
-  <Header />
-  <RouterView />
+  <main class="w-screen">
+    <Notification />
+    <Toast class="max-w-fit" />
+    <Header />
+    <RouterView />
+  </main>
 </template>
 
 <style>

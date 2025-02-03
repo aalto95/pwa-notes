@@ -36,7 +36,7 @@ export const useStore = defineStore("notes", {
         this.notification.visible = false;
       }, this.notification.duration);
     },
-    addNote(note: Partial<Note>): void {
+    addNote(note: Omit<Note, "id">): void {
       this.notes.push({
         ...note,
         id: self.crypto.randomUUID(),
@@ -60,7 +60,7 @@ export const useStore = defineStore("notes", {
       this.invokeNotification(1);
       localStorage.setItem("notes", JSON.stringify(this.notes));
     },
-    getNoteById(id: Note["id"]): Note {
+    getNoteById(id: Note["id"]): Note | undefined {
       return this.notes.find((note) => note.id === id);
     },
   },

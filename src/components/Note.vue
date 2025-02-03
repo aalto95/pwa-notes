@@ -70,10 +70,7 @@ watch(
 <template>
   <li class="flex w-full justify-between cursor-move">
     <div class="flex flex-col h-full w-full justify-center">
-      <div
-        class="flex w-full min-h-12"
-        :class="note.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
-      >
+      <div class="flex w-full min-h-12">
         <p
           class="flex w-8/12 items-center break-all select-none font-semi-bold ml-4"
         >

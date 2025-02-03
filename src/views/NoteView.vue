@@ -57,7 +57,7 @@ const route = useRoute();
 const store = useStore();
 
 const id = route.params.id;
-let note;
+const note = ref<Note | Partial<Note> | undefined>();
 const file = ref<File | null>(null);
 const imageSrc = ref("");
 
@@ -71,12 +71,12 @@ function setFile(event: FileUploadSelectEvent) {
 }
 
 if (id) {
-  note = store.getNoteById(id.toString());
+  note.value = store.getNoteById(id.toString());
 } else {
-  note = ref({
+  note.value = {
     title: "",
     text: "",
-  });
+  };
 }
 
 const titleField = ref<HTMLInputElement | null>(null);
@@ -94,11 +94,11 @@ function editNote() {
         id,
         createdAt: new Date(),
       });
-      note.imageId = id;
-      store.editNote(note as Note);
+      (note.value as Note).imageId = id;
+      store.editNote(note.value as Note);
     };
   } else {
-    store.editNote(note as Note);
+    store.editNote(note.value as Note);
   }
   router.push("/");
 }
@@ -115,11 +115,11 @@ function addNote() {
         data: bits as string,
         createdAt: new Date(),
       });
-      note.value.imageId = id;
-      store.addNote(note.value);
+      (note.value as Partial<Note>).imageId = id;
+      store.addNote(note.value as Omit<Note, "id">);
     };
   } else {
-    store.addNote(note.value);
+    store.addNote(note.value as Omit<Note, "id">);
   }
   router.push("/");
 }
@@ -137,7 +137,7 @@ function loadImage() {
     liveQuery(async () => {
       return await db.files
         .where("id")
-        .equals(note.imageId)
+        .equals((note.value as Note).imageId)
         .first((file) => {
           imageSrc.value = "data:image/jpeg;base64," + btoa(file!.data);
         });

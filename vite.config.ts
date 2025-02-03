@@ -1,20 +1,17 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import WindiCSS from "vite-plugin-windicss";
 import { VitePWA } from "vite-plugin-pwa";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    WindiCSS(),
+    tailwindcss(),
     VitePWA({
       srcDir: "public",
       filename: "sw.js",
       registerType: "autoUpdate",
-      build: {
-        sourcemap: true,
-      },
       workbox: {
         cleanupOutdatedCaches: false,
         sourcemap: true,

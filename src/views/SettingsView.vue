@@ -12,21 +12,37 @@
       style="width: 100%"
       mode="basic"
       customUpload
+      accept="application/json"
       :maxFileSize="1000000"
       :auto="true"
       chooseLabel="Import notes"
       @select="importNotes"
     />
+    <p>Delete all notes</p>
+    <Button @click="deleteNotes"
+      >Delete notes <TrashIcon class="w-6 h-6"
+    /></Button>
+
+    <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Note } from "@/models/Note";
-import { DocumentArrowDownIcon } from "@heroicons/vue/24/solid";
-import { Button, FileUpload, FileUploadSelectEvent } from "primevue";
+import { useStore } from "../store/store";
+import { DocumentArrowDownIcon, TrashIcon } from "@heroicons/vue/24/solid";
+import {
+  Button,
+  FileUpload,
+  FileUploadSelectEvent,
+  useConfirm,
+  ConfirmDialog,
+} from "primevue";
 import { useToast } from "primevue/usetoast";
 
+const store = useStore();
 const toast = useToast();
+const confirm = useConfirm();
 
 function exportNotes() {
   let notes = localStorage.getItem("notes");
@@ -62,13 +78,43 @@ function importNotes(event: FileUploadSelectEvent) {
 
   reader.onload = (e) => {
     const jsContent = e.target?.result;
-
-    const jsonObject = eval(`(${jsContent})`);
+    const jsonObject: Note[] = eval(`(${jsContent})`);
     const jsonString = JSON.stringify(jsonObject);
     localStorage.setItem("notes", jsonString);
+    showNotesImportedToast();
+    store.notes = jsonObject;
   };
 
   reader.readAsText(file);
+}
+
+function deleteNotes() {
+  confirm.require({
+    message: "Do you want to delete this record?",
+    header: "Danger Zone",
+    icon: "pi pi-info-circle",
+    rejectLabel: "Cancel",
+    rejectProps: {
+      label: "Cancel",
+      severity: "secondary",
+      outlined: true,
+    },
+    acceptProps: {
+      label: "Delete",
+      severity: "danger",
+    },
+    accept: () => {
+      localStorage.removeItem("notes");
+      store.notes = [];
+      toast.add({
+        severity: "info",
+        summary: "Confirmed",
+        detail: "All notes were deleted",
+        life: 3000,
+      });
+    },
+    reject: () => {},
+  });
 }
 
 function showNotesNotFoundToast() {
@@ -76,6 +122,15 @@ function showNotesNotFoundToast() {
     severity: "error",
     summary: "Error",
     detail: "Notes not found",
+    life: 3000,
+  });
+}
+
+function showNotesImportedToast() {
+  toast.add({
+    severity: "success",
+    summary: "Success",
+    detail: "Notes were successfully imported",
     life: 3000,
   });
 }

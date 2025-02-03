@@ -7,6 +7,11 @@
       <h1 class="text-xl font-bold">Notes</h1>
     </RouterLink>
     <span class="flex gap-4">
+      <RouterLink to="/settings">
+        <Button rounded class="w-10 h-10">
+          <Cog8ToothIcon></Cog8ToothIcon> </Button
+      ></RouterLink>
+
       <Button rounded class="w-10 h-10" @click="toggleDarkMode()">
         <SunIcon v-if="store.darkMode" class="h-6 w-6 text-black" />
         <MoonIcon v-if="!store.darkMode" class="h-6 w-6 text-black" />
@@ -20,7 +25,12 @@
 
 <script setup lang="ts">
 import router from "../router";
-import { PlusIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/solid";
+import {
+  PlusIcon,
+  MoonIcon,
+  SunIcon,
+  Cog8ToothIcon,
+} from "@heroicons/vue/24/solid";
 import { useStore } from "../store/store";
 import Button from "primevue/button";
 import { RouterLink } from "vue-router";

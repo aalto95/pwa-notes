@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build --mode production",
+    "build": "vue-tsc --noEmit && vite build --mode production",
     "dev": "vite --mode development",
     "prod": "vite --mode production",
     "serve": "vite preview",

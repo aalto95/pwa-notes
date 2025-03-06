@@ -1,44 +1,3 @@
-<template>
-  <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
-    <h1 class="text-3xl font-bold">{{ id ? 'Edit' : 'Add' }} note</h1>
-    <InputText placeholder="Title" v-model="note.title" />
-    <Textarea
-      placeholder="Text"
-      autoResize
-      style="min-height: 300px; resize: none"
-      multiline
-      v-model="note.text"
-    ></Textarea>
-    <FileUpload
-      @select="setFile"
-      customUpload
-      auto
-      mode="basic"
-      severity="secondary"
-      accept="image/*"
-      :maxFileSize="1000000"
-      class="content-start"
-    />
-    <span v-if="imageSrc" class="flex justify-center">
-      <img
-        :src="imageSrc"
-        alt="Image"
-        class="shadow-md rounded-xl w-full sm:w-64 flex justify-center"
-        style="filter: grayscale(100%)"
-      />
-    </span>
-
-    <div class="flex justify-end gap-2">
-      <Button @click="cancel()" label="Cancel" />
-      <Button
-        label="Save"
-        @click="id ? editNote() : addNote()"
-        :disabled="!note.title || !note.text"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { liveQuery } from 'dexie';
 import Button from 'primevue/button';
@@ -143,5 +102,46 @@ onMounted(() => {
   loadImage();
 });
 </script>
+
+<template>
+  <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
+    <h1 class="text-3xl font-bold">{{ id ? 'Edit' : 'Add' }} note</h1>
+    <InputText placeholder="Title" v-model="note.title" />
+    <Textarea
+      placeholder="Text"
+      autoResize
+      style="min-height: 300px; resize: none"
+      multiline
+      v-model="note.text"
+    ></Textarea>
+    <FileUpload
+      @select="setFile"
+      customUpload
+      auto
+      mode="basic"
+      severity="secondary"
+      accept="image/*"
+      :maxFileSize="1000000"
+      class="content-start"
+    />
+    <span v-if="imageSrc" class="flex justify-center">
+      <img
+        :src="imageSrc"
+        alt="Image"
+        class="shadow-md rounded-xl w-full sm:w-64 flex justify-center"
+        style="filter: grayscale(100%)"
+      />
+    </span>
+
+    <div class="flex justify-end gap-2">
+      <Button @click="cancel()" label="Cancel" />
+      <Button
+        label="Save"
+        @click="id ? editNote() : addNote()"
+        :disabled="!note.title || !note.text"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped></style>

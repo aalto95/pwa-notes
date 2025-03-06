@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { useStore } from '../store/store';
+const store = useStore();
+</script>
+
 <template>
   <div
     class="fixed h-15 z-20 w-full flex justify-center items-center transition-all duration-500 ease-in-out transform"
@@ -21,10 +26,5 @@
     </h1>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useStore } from '../store/store';
-const store = useStore();
-</script>
 
 <style scoped></style>

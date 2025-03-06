@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { db } from '@/db/dexie';
+import { Note } from '@/models/Note';
+import { useStore } from '@/store/store';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -9,9 +12,6 @@ import {
 } from '@heroicons/vue/24/solid';
 import { liveQuery } from 'dexie';
 import { onMounted, ref, watch } from 'vue';
-import { db } from '../db/dexie';
-import { Note } from '../models/Note';
-import { useStore } from '../store/store';
 
 interface Props {
   note: Note;

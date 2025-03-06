@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { db } from '@/db/dexie';
+import { Note } from '@/models/Note';
+import router from '@/router';
+import { useStore } from '@/store/store';
 import { liveQuery } from 'dexie';
 import Button from 'primevue/button';
 import FileUpload, { FileUploadSelectEvent } from 'primevue/fileupload';
@@ -6,10 +10,6 @@ import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { db } from '../db/dexie';
-import { Note } from '../models/Note';
-import router from '../router';
-import { useStore } from '../store/store';
 
 const route = useRoute();
 const store = useStore();

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import Note from '@/components/Note.vue';
+import { useStore } from '@/store/store';
 import { ref } from 'vue';
 import draggable from 'vuedraggable';
-import { useStore } from '../store/store';
-import Note from './Note.vue';
 
 const store = useStore();
 const drag = ref(false);

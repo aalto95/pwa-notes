@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import router from '@/router';
+import { useStore } from '@/store/store';
 import {
   Cog8ToothIcon,
   MoonIcon,
@@ -7,8 +9,6 @@ import {
 } from '@heroicons/vue/24/solid';
 import Button from 'primevue/button';
 import { RouterLink } from 'vue-router';
-import router from '../router';
-import { useStore } from '../store/store';
 
 const store = useStore();
 

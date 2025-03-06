@@ -1,7 +1,7 @@
+import { db } from '@/db/dexie';
+import { Note } from '@/models/Note';
+import { Notification } from '@/models/Notification';
 import { defineStore } from 'pinia';
-import { Note } from '../models/Note';
-import { Notification } from '../models/Notification';
-import { db } from './../db/dexie';
 // useStore could be anything like useUser, useCart
 // the first argument is a unique id of the store across your application
 

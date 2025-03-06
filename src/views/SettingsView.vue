@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Note } from '@/models/Note';
+import { useStore } from '@/store/store';
 import { DocumentArrowDownIcon, TrashIcon } from '@heroicons/vue/24/solid';
 import {
   Button,
@@ -9,7 +10,6 @@ import {
   useConfirm,
 } from 'primevue';
 import { useToast } from 'primevue/usetoast';
-import { useStore } from '../store/store';
 
 const store = useStore();
 const toast = useToast();

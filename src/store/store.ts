@@ -1,7 +1,7 @@
-import { db } from "./../db/dexie";
-import { defineStore } from "pinia";
-import { Note } from "../models/Note";
-import { Notification } from "../models/Notification";
+import { defineStore } from 'pinia';
+import { Note } from '../models/Note';
+import { Notification } from '../models/Notification';
+import { db } from './../db/dexie';
 // useStore could be anything like useUser, useCart
 // the first argument is a unique id of the store across your application
 
@@ -11,7 +11,7 @@ export type RootState = {
   notification: Notification;
 };
 
-export const useStore = defineStore("notes", {
+export const useStore = defineStore('notes', {
   state: () => {
     return {
       notes: [],
@@ -25,8 +25,8 @@ export const useStore = defineStore("notes", {
   },
   actions: {
     getNotes(): void {
-      if (localStorage.getItem("notes") !== null) {
-        this.notes = JSON.parse(localStorage.getItem("notes")!);
+      if (localStorage.getItem('notes') !== null) {
+        this.notes = JSON.parse(localStorage.getItem('notes')!);
       }
     },
     invokeNotification(type: 0 | 1 | 2): void {
@@ -36,19 +36,19 @@ export const useStore = defineStore("notes", {
         this.notification.visible = false;
       }, this.notification.duration);
     },
-    addNote(note: Omit<Note, "id">): void {
+    addNote(note: Omit<Note, 'id'>): void {
       this.notes.push({
         ...note,
         id: self.crypto.randomUUID(),
       });
       this.invokeNotification(0);
-      localStorage.setItem("notes", JSON.stringify(this.notes));
+      localStorage.setItem('notes', JSON.stringify(this.notes));
     },
-    deleteNote(id: Note["id"], imageId: Note["imageId"]): void {
+    deleteNote(id: Note['id'], imageId: Note['imageId']): void {
       this.notes = this.notes.filter((note) => note.id !== id);
       this.invokeNotification(2);
-      localStorage.setItem("notes", JSON.stringify(this.notes));
-      db.files.where("id").equals(imageId).delete();
+      localStorage.setItem('notes', JSON.stringify(this.notes));
+      db.files.where('id').equals(imageId).delete();
     },
     editNote(changedNote: Note): void {
       this.notes = this.notes.map((note) => {
@@ -58,9 +58,9 @@ export const useStore = defineStore("notes", {
         return note;
       });
       this.invokeNotification(1);
-      localStorage.setItem("notes", JSON.stringify(this.notes));
+      localStorage.setItem('notes', JSON.stringify(this.notes));
     },
-    getNoteById(id: Note["id"]): Note | undefined {
+    getNoteById(id: Note['id']): Note | undefined {
       return this.notes.find((note) => note.id === id);
     },
   },

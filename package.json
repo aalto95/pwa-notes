@@ -8,7 +8,8 @@
     "dev": "vite --mode development",
     "prod": "vite --mode production",
     "serve": "vite preview",
-    "analyze": "analyze -c ./vite.config.ts -p 8889"
+    "analyze": "analyze -c ./vite.config.ts -p 8889",
+    "prettier": "prettier src/**/*.{js,ts,tsx,vue,json} --write"
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
@@ -27,6 +28,8 @@
     "eslint-plugin-vue": "^10.0.0",
     "globals": "^16.0.0",
     "pinia": "^2.1.7",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "tailwindcss": "^4.0.3",
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.26.0",
@@ -34,6 +37,7 @@
     "vite-bundle-analyzer": "^0.16.2",
     "vite-plugin-pwa": "^0.20.0",
     "vue-router": "^4.3.2",
+    "vue-tsc": "^2.2.8",
     "vuedraggable": "^4.1.0"
   },
   "browserslist": [

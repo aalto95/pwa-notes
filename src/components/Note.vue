@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { useStore } from "../store/store";
-import { onMounted, ref, watch } from "vue";
-import { Note } from "../models/Note";
 import {
-  TrashIcon,
-  PencilIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ChevronUpIcon,
-} from "@heroicons/vue/24/solid";
-import { liveQuery } from "dexie";
-import { useObservable } from "@vueuse/rxjs";
-import { db } from "../db/dexie";
+  PencilIcon,
+  TrashIcon,
+} from '@heroicons/vue/24/solid';
+import { useObservable } from '@vueuse/rxjs';
+import { liveQuery } from 'dexie';
+import { onMounted, ref, watch } from 'vue';
+import { db } from '../db/dexie';
+import { Note } from '../models/Note';
+import { useStore } from '../store/store';
 
 interface Props {
   note: Note;
@@ -23,7 +23,7 @@ const store = useStore();
 
 const isActionBarActive = ref(false);
 const isTextVisible = ref(false);
-const imageSrc = ref<string>("");
+const imageSrc = ref<string>('');
 
 function deleteNote() {
   store.deleteNote(props.note.id, props.note.imageId);
@@ -46,10 +46,10 @@ function loadImage() {
     // @ts-ignore
     liveQuery(async () => {
       return await db.files
-        .where("id")
+        .where('id')
         .equals(props.note.imageId)
         .first((file) => {
-          imageSrc.value = "data:image/jpeg;base64," + btoa(file!.data);
+          imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
         });
     })
   );

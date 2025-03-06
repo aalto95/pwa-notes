@@ -28,25 +28,25 @@
 </template>
 
 <script setup lang="ts">
-import { Note } from "@/models/Note";
-import { useStore } from "../store/store";
-import { DocumentArrowDownIcon, TrashIcon } from "@heroicons/vue/24/solid";
+import { Note } from '@/models/Note';
+import { DocumentArrowDownIcon, TrashIcon } from '@heroicons/vue/24/solid';
 import {
   Button,
+  ConfirmDialog,
   FileUpload,
   FileUploadSelectEvent,
   useConfirm,
-  ConfirmDialog,
-} from "primevue";
-import { useToast } from "primevue/usetoast";
+} from 'primevue';
+import { useToast } from 'primevue/usetoast';
+import { useStore } from '../store/store';
 
 const store = useStore();
 const toast = useToast();
 const confirm = useConfirm();
 
 function exportNotes() {
-  const notes = localStorage.getItem("notes");
-  if (notes && notes !== "[]" && notes !== "null") {
+  const notes = localStorage.getItem('notes');
+  if (notes && notes !== '[]' && notes !== 'null') {
     const notesJson: Note[] = JSON.parse(notes);
     const notesJsonWithoutImageId = notesJson.map(
       ({ imageId, ...rest }) => rest
@@ -57,12 +57,12 @@ function exportNotes() {
       2
     );
     const blob = new Blob([stringifiedJsonWithoutImageId], {
-      type: "application/json",
+      type: 'application/json',
     });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
-    a.download = "notes.json";
+    a.download = 'notes.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -80,7 +80,7 @@ function importNotes(event: FileUploadSelectEvent) {
     const jsContent = e.target?.result;
     const jsonObject: Note[] = eval(`(${jsContent})`);
     const jsonString = JSON.stringify(jsonObject);
-    localStorage.setItem("notes", jsonString);
+    localStorage.setItem('notes', jsonString);
     showNotesImportedToast();
     store.notes = jsonObject;
   };
@@ -89,29 +89,29 @@ function importNotes(event: FileUploadSelectEvent) {
 }
 
 function deleteNotes() {
-  const notes = localStorage.getItem("notes");
-  if (notes && notes !== "[]" && notes !== "null") {
+  const notes = localStorage.getItem('notes');
+  if (notes && notes !== '[]' && notes !== 'null') {
     confirm.require({
-      message: "Do you want to delete this record?",
-      header: "Danger Zone",
-      icon: "pi pi-info-circle",
-      rejectLabel: "Cancel",
+      message: 'Do you want to delete this record?',
+      header: 'Danger Zone',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
       rejectProps: {
-        label: "Cancel",
-        severity: "secondary",
+        label: 'Cancel',
+        severity: 'secondary',
         outlined: true,
       },
       acceptProps: {
-        label: "Delete",
-        severity: "danger",
+        label: 'Delete',
+        severity: 'danger',
       },
       accept: () => {
-        localStorage.removeItem("notes");
+        localStorage.removeItem('notes');
         store.notes = [];
         toast.add({
-          severity: "info",
-          summary: "Confirmed",
-          detail: "All notes were deleted",
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'All notes were deleted',
           life: 3000,
         });
       },
@@ -124,18 +124,18 @@ function deleteNotes() {
 
 function showNotesNotFoundToast() {
   toast.add({
-    severity: "error",
-    summary: "Error",
-    detail: "Notes not found",
+    severity: 'error',
+    summary: 'Error',
+    detail: 'Notes not found',
     life: 3000,
   });
 }
 
 function showNotesImportedToast() {
   toast.add({
-    severity: "success",
-    summary: "Success",
-    detail: "Notes were successfully imported",
+    severity: 'success',
+    summary: 'Success',
+    detail: 'Notes were successfully imported',
     life: 3000,
   });
 }

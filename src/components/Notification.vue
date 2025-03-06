@@ -13,17 +13,17 @@
       Note
       {{
         store.notification.type === 0
-          ? "Created"
+          ? 'Created'
           : store.notification.type === 1
-          ? "Edited"
-          : "Deleted"
+            ? 'Edited'
+            : 'Deleted'
       }}
     </h1>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useStore } from "../store/store";
+import { useStore } from '../store/store';
 const store = useStore();
 </script>
 

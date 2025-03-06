@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Notes from "../components/Notes.vue";
+import Notes from '../components/Notes.vue';
 </script>
 
 <style scoped></style>

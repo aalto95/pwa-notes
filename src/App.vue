@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { RouterView } from "vue-router";
-import { Toast } from "primevue";
-import { useStore } from "./store/store";
-import Header from "./components/Header.vue";
-import Notification from "./components/Notification.vue";
+import { Toast } from 'primevue';
+import { onMounted } from 'vue';
+import { RouterView } from 'vue-router';
+import Header from './components/Header.vue';
+import Notification from './components/Notification.vue';
+import { useStore } from './store/store';
 
 const store = useStore();
 
 onMounted(async () => {
-  const localStorageDarkMode = localStorage.getItem("darkMode");
+  const localStorageDarkMode = localStorage.getItem('darkMode');
   if (!localStorageDarkMode) {
-    localStorage.setItem("darkMode", "true");
+    localStorage.setItem('darkMode', 'true');
     store.darkMode = true;
-    document.documentElement.classList.add("my-app-dark");
-  } else if (localStorageDarkMode === "true") {
+    document.documentElement.classList.add('my-app-dark');
+  } else if (localStorageDarkMode === 'true') {
     store.darkMode = true;
-    document.documentElement.classList.add("my-app-dark");
+    document.documentElement.classList.add('my-app-dark');
   } else {
     store.darkMode = false;
   }

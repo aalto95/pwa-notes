@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import Header from '@/components/Header.vue';
+import Notification from '@/components/Notification.vue';
+import { useStore } from '@/store/store';
 import { Toast } from 'primevue';
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import Header from './components/Header.vue';
-import Notification from './components/Notification.vue';
-import { useStore } from './store/store';
 
 const store = useStore();
 

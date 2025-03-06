@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { useObservable } from '@vueuse/rxjs';
 import { liveQuery } from 'dexie';
 import Button from 'primevue/button';
 import FileUpload, { FileUploadSelectEvent } from 'primevue/fileupload';
@@ -128,21 +127,15 @@ function cancel() {
   router.push('/');
 }
 
-function focusTextField() {
-  textField.value?.focus();
-}
-
 function loadImage() {
-  useObservable(
-    liveQuery(async () => {
-      return await db.files
-        .where('id')
-        .equals((note.value as Note).imageId)
-        .first((file) => {
-          imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
-        });
-    }) as any
-  );
+  liveQuery(async () => {
+    return await db.files
+      .where('id')
+      .equals((note.value as Note).imageId)
+      .first((file) => {
+        imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
+      });
+  }).subscribe();
 }
 
 onMounted(() => {

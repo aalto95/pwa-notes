@@ -7,7 +7,6 @@ import {
   PencilIcon,
   TrashIcon,
 } from '@heroicons/vue/24/solid';
-import { useObservable } from '@vueuse/rxjs';
 import { liveQuery } from 'dexie';
 import { onMounted, ref, watch } from 'vue';
 import { db } from '../db/dexie';
@@ -42,17 +41,14 @@ function toggleText() {
 }
 
 function loadImage() {
-  useObservable(
-    // @ts-ignore
-    liveQuery(async () => {
-      return await db.files
-        .where('id')
-        .equals(props.note.imageId)
-        .first((file) => {
-          imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
-        });
-    })
-  );
+  liveQuery(async () => {
+    return await db.files
+      .where('id')
+      .equals(props.note.imageId)
+      .first((file) => {
+        imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
+      });
+  }).subscribe();
 }
 
 onMounted(() => {

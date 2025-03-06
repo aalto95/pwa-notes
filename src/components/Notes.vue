@@ -22,7 +22,7 @@ function dragEnd() {
 
 <template>
   <draggable
-    class="w-screen overflow-x-hidden list-group"
+    class="list-group w-screen overflow-x-hidden"
     :component-data="{
       tag: 'ul',
       name: !drag ? 'flip-list' : null,

@@ -5,7 +5,7 @@ const store = useStore();
 
 <template>
   <div
-    class="fixed h-15 z-20 w-full flex justify-center items-center transition-all duration-500 ease-in-out transform"
+    class="fixed z-20 flex h-15 w-full transform items-center justify-center transition-all duration-500 ease-in-out"
     :class="{
       'translate-y-0': store.notification.visible,
       '-translate-y-full': !store.notification.visible,
@@ -14,7 +14,7 @@ const store = useStore();
       'bg-red-500': store.notification.type === 2,
     }"
   >
-    <h1 class="font-bold text-2xl text-white">
+    <h1 class="text-2xl font-bold text-white">
       Note
       {{
         store.notification.type === 0

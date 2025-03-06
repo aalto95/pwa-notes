@@ -113,13 +113,13 @@ function showNotesImportedToast() {
 </script>
 
 <template>
-  <div class="mt-15 w-full flex flex-col p-4 gap-4">
+  <div class="mt-15 flex w-full flex-col gap-4 p-4">
     <p>
       Export all notes in <code>json</code> format. All linked assets will not
       be exported.
     </p>
     <Button @click="exportNotes">
-      Export notes <DocumentArrowDownIcon class="w-6 h-6" />
+      Export notes <DocumentArrowDownIcon class="h-6 w-6" />
     </Button>
     <p>Import your notes from another device in <code>json</code> format.</p>
     <FileUpload
@@ -134,7 +134,7 @@ function showNotesImportedToast() {
     />
     <p>Delete all notes</p>
     <Button @click="deleteNotes">
-      Delete notes <TrashIcon class="w-6 h-6" />
+      Delete notes <TrashIcon class="h-6 w-6" />
     </Button>
     <ConfirmDialog></ConfirmDialog>
   </div>

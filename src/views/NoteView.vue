@@ -104,7 +104,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
+  <div v-if="note" class="mt-15 flex w-full flex-col gap-2 p-2">
     <h1 class="text-3xl font-bold">{{ id ? 'Edit' : 'Add' }} note</h1>
     <InputText placeholder="Title" v-model="note.title" />
     <Textarea
@@ -128,7 +128,7 @@ onMounted(() => {
       <img
         :src="imageSrc"
         alt="Image"
-        class="shadow-md rounded-xl w-full sm:w-64 flex justify-center"
+        class="flex w-full justify-center rounded-xl shadow-md sm:w-64"
         style="filter: grayscale(100%)"
       />
     </span>

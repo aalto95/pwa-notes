@@ -1,6 +1,6 @@
 <template>
   <div v-if="note" class="flex w-full flex-col p-2 gap-2 mt-15">
-    <h1 class="text-3xl font-bold">{{ id ? "Edit" : "Add" }} note</h1>
+    <h1 class="text-3xl font-bold">{{ id ? 'Edit' : 'Add' }} note</h1>
     <InputText placeholder="Title" v-model="note.title" />
     <Textarea
       placeholder="Text"
@@ -40,18 +40,18 @@
 </template>
 
 <script setup lang="ts">
-import { useObservable } from "@vueuse/rxjs";
-import { liveQuery } from "dexie";
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import { db } from "../db/dexie";
-import { Note } from "../models/Note";
-import router from "../router";
-import { useStore } from "../store/store";
-import Button from "primevue/button";
-import InputText from "primevue/inputtext";
-import Textarea from "primevue/textarea";
-import FileUpload, { FileUploadSelectEvent } from "primevue/fileupload";
+import { useObservable } from '@vueuse/rxjs';
+import { liveQuery } from 'dexie';
+import Button from 'primevue/button';
+import FileUpload, { FileUploadSelectEvent } from 'primevue/fileupload';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { db } from '../db/dexie';
+import { Note } from '../models/Note';
+import router from '../router';
+import { useStore } from '../store/store';
 
 const route = useRoute();
 const store = useStore();
@@ -59,7 +59,7 @@ const store = useStore();
 const id = route.params.id;
 const note = ref<Note | Partial<Note> | undefined>();
 const file = ref<File | null>(null);
-const imageSrc = ref("");
+const imageSrc = ref('');
 
 function setFile(event: FileUploadSelectEvent) {
   const fr = new FileReader();
@@ -74,8 +74,8 @@ if (id) {
   note.value = store.getNoteById(id.toString());
 } else {
   note.value = {
-    title: "",
-    text: "",
+    title: '',
+    text: '',
   };
 }
 
@@ -100,7 +100,7 @@ function editNote() {
   } else {
     store.editNote(note.value as Note);
   }
-  router.push("/");
+  router.push('/');
 }
 
 function addNote() {
@@ -116,16 +116,16 @@ function addNote() {
         createdAt: new Date(),
       });
       (note.value as Partial<Note>).imageId = id;
-      store.addNote(note.value as Omit<Note, "id">);
+      store.addNote(note.value as Omit<Note, 'id'>);
     };
   } else {
-    store.addNote(note.value as Omit<Note, "id">);
+    store.addNote(note.value as Omit<Note, 'id'>);
   }
-  router.push("/");
+  router.push('/');
 }
 
 function cancel() {
-  router.push("/");
+  router.push('/');
 }
 
 function focusTextField() {
@@ -136,10 +136,10 @@ function loadImage() {
   useObservable(
     liveQuery(async () => {
       return await db.files
-        .where("id")
+        .where('id')
         .equals((note.value as Note).imageId)
         .first((file) => {
-          imageSrc.value = "data:image/jpeg;base64," + btoa(file!.data);
+          imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
         });
     }) as any
   );

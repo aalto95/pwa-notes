@@ -1,4 +1,4 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 
 export interface File {
   id: string;
@@ -10,9 +10,9 @@ export class NotesDexie extends Dexie {
   files!: Dexie.Table<File, string>;
 
   constructor() {
-    super("notesDatabase");
+    super('notesDatabase');
     this.version(1).stores({
-      files: "id, data, createdAt",
+      files: 'id, data, createdAt',
     });
   }
 }

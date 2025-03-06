@@ -4,9 +4,9 @@
       Export all notes in <code>json</code> format. All linked assets will not
       be exported.
     </p>
-    <Button @click="exportNotes"
-      >Export notes <DocumentArrowDownIcon class="w-6 h-6"
-    /></Button>
+    <Button @click="exportNotes">
+      Export notes <DocumentArrowDownIcon class="w-6 h-6" />
+    </Button>
     <p>Import your notes from another device in <code>json</code> format.</p>
     <FileUpload
       style="width: 100%"
@@ -19,10 +19,9 @@
       @select="importNotes"
     />
     <p>Delete all notes</p>
-    <Button @click="deleteNotes"
-      >Delete notes <TrashIcon class="w-6 h-6"
-    /></Button>
-
+    <Button @click="deleteNotes">
+      Delete notes <TrashIcon class="w-6 h-6" />
+    </Button>
     <ConfirmDialog></ConfirmDialog>
   </div>
 </template>

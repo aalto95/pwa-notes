@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Note from '@/components/Note.vue';
+import NoteItem from '@/components/NoteItem.vue';
 import { useStore } from '@/store/store';
 import { ref } from 'vue';
 import draggable from 'vuedraggable';
@@ -35,7 +35,7 @@ function dragEnd() {
     :delay="100"
   >
     <template #item="{ element }">
-      <Note :note="element" :key="element.id" />
+      <NoteItem :note="element" :key="element.id" />
     </template>
   </draggable>
 </template>

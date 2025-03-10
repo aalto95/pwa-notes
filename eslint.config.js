@@ -1,25 +1,33 @@
-import pluginJs from '@eslint/js';
-import pluginVue from 'eslint-plugin-vue';
+import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import ts from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,vue}'] },
   { languageOptions: { globals: globals.browser } },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  ...eslintPluginVue.configs['flat/essential'],
+  eslintConfigPrettier,
   {
-    files: ['**/*.vue'],
-    languageOptions: { parserOptions: { parser: tseslint.parser } },
-    rules: {
-      'vue/multi-word-component-names': 'off',
+    plugins: {
+      '@stylistic': stylistic,
     },
-  },
-  {
-    files: ['**/*.{js,jsx,ts,tsx,vue}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+      },
+    },
+    files: ['**/*.{js,mjs,cjs,ts,vue}'],
     rules: {
+      curly: 'error',
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/brace-style': 'error',
       '@typescript-eslint/no-unused-vars': 'warn',
     },
   },

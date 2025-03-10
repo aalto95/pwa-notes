@@ -28,7 +28,7 @@
     "@tailwindcss/vite": "^4.0.3",
     "@types/node": "^22.13.9",
     "@vitejs/plugin-vue": "^5.0.4",
-    "config-federation": "^0.0.9",
+    "config-federation": "^0.0.10",
     "dexie": "^4.0.4",
     "eslint": "^9.21.0",
     "pinia": "^2.1.7",

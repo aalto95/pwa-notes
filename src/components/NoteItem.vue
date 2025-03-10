@@ -119,5 +119,3 @@ watch(
     </div>
   </li>
 </template>
-
-<style scoped></style>

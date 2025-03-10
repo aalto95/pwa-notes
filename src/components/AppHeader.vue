@@ -47,5 +47,3 @@ function toggleDarkMode() {
     </span>
   </header>
 </template>
-
-<style scoped></style>

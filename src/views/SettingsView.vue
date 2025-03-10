@@ -139,5 +139,3 @@ function showNotesImportedToast() {
     <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
-
-<style scoped></style>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import Header from '@/components/Header.vue';
-import Notification from '@/components/Notification.vue';
+import AppHeader from '@/components/AppHeader.vue';
 import { useStore } from '@/store/store';
 import { Toast } from 'primevue';
 import { onMounted } from 'vue';
@@ -26,9 +25,9 @@ onMounted(async () => {
 
 <template>
   <main class="w-screen">
-    <Notification />
+    <AppNotification />
     <Toast class="max-w-fit" />
-    <Header />
+    <AppHeader />
     <RouterView />
   </main>
 </template>

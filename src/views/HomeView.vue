@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Notes from '@/components/Notes.vue';
+import NoteList from '@/components/NoteList.vue';
 </script>
 
 <template>
   <div class="mt-15">
-    <Notes />
+    <NoteList />
   </div>
 </template>
 

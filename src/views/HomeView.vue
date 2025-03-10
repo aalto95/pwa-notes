@@ -7,5 +7,3 @@ import NoteList from '@/components/NoteList.vue';
     <NoteList />
   </div>
 </template>
-
-<style scoped></style>

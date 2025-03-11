@@ -1,3 +1,3 @@
-import { eslintConfig } from 'config-federation';
+import { eslintConfig } from '@config-federation/vue';
 
 export default [...eslintConfig];

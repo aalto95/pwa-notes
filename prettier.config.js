@@ -1,4 +1,4 @@
-import { deepMerge, prettierConfig } from 'config-federation';
+import { deepMerge, prettierConfig } from '@config-federation/vue';
 
 const customs = {
   plugins: ['prettier-plugin-tailwindcss'],

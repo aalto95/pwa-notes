@@ -1,4 +1,4 @@
-import { deepMerge, stylelintConfig } from 'config-federation';
+import { deepMerge, stylelintConfig } from '@config-federation/vue';
 
 const customs = {};
 

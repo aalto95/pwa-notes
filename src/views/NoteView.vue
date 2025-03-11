@@ -33,7 +33,7 @@ if (id) {
 } else {
   note.value = {
     title: '',
-    text: '',
+    text: ''
   };
 }
 
@@ -50,7 +50,7 @@ function editNote() {
       const file = db.files.add({
         data: bits as string,
         id,
-        createdAt: new Date(),
+        createdAt: new Date()
       });
       (note.value as Note).imageId = id;
       store.editNote(note.value as Note);
@@ -71,7 +71,7 @@ function addNote() {
       const file = db.files.add({
         id,
         data: bits as string,
-        createdAt: new Date(),
+        createdAt: new Date()
       });
       (note.value as Partial<Note>).imageId = id;
       store.addNote(note.value as Omit<Note, 'id'>);

@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/note',
@@ -16,16 +16,16 @@ const router = createRouter({
         {
           path: '/:id',
           name: 'note',
-          component: () => import('../views/NoteView.vue'),
-        },
-      ],
+          component: () => import('../views/NoteView.vue')
+        }
+      ]
     },
     {
       path: '/settings',
       name: 'settings',
-      component: () => import('../views/SettingsView.vue'),
-    },
-  ],
+      component: () => import('../views/SettingsView.vue')
+    }
+  ]
 });
 
 router.beforeEach(async (to, from) => {});

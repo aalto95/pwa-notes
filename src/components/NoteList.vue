@@ -11,7 +11,7 @@ const dragOptions = {
   animation: 200,
   group: 'description',
   disabled: false,
-  ghostClass: 'ghost',
+  ghostClass: 'ghost'
 };
 
 function dragEnd() {
@@ -25,7 +25,7 @@ function dragEnd() {
     class="list-group w-screen overflow-x-hidden"
     :component-data="{
       tag: 'ul',
-      name: !drag ? 'flip-list' : null,
+      name: !drag ? 'flip-list' : null
     }"
     v-model="store.notes"
     v-bind="dragOptions"

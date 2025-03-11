@@ -19,8 +19,8 @@ export const useStore = defineStore('notes', {
       notification: {
         type: 0,
         duration: 750,
-        visible: false,
-      },
+        visible: false
+      }
     } as RootState;
   },
   actions: {
@@ -39,7 +39,7 @@ export const useStore = defineStore('notes', {
     addNote(note: Omit<Note, 'id'>): void {
       this.notes.push({
         ...note,
-        id: self.crypto.randomUUID(),
+        id: self.crypto.randomUUID()
       });
       this.invokeNotification(0);
       localStorage.setItem('notes', JSON.stringify(this.notes));
@@ -62,6 +62,6 @@ export const useStore = defineStore('notes', {
     },
     getNoteById(id: Note['id']): Note | undefined {
       return this.notes.find((note) => note.id === id);
-    },
-  },
+    }
+  }
 });

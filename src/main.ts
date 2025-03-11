@@ -17,9 +17,9 @@ app.use(PrimeVue, {
   theme: {
     preset: Aura,
     options: {
-      darkModeSelector: '.my-app-dark',
-    },
-  },
+      darkModeSelector: '.my-app-dark'
+    }
+  }
 });
 app.use(ToastService);
 app.use(ConfirmationService);

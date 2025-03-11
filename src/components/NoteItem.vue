@@ -8,7 +8,7 @@ import {
   ChevronRightIcon,
   ChevronUpIcon,
   PencilIcon,
-  TrashIcon,
+  TrashIcon
 } from '@heroicons/vue/24/solid';
 import { liveQuery } from 'dexie';
 import { onMounted, ref, watch } from 'vue';

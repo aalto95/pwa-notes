@@ -5,7 +5,7 @@ import {
   Cog8ToothIcon,
   MoonIcon,
   PlusIcon,
-  SunIcon,
+  SunIcon
 } from '@heroicons/vue/24/solid';
 import Button from 'primevue/button';
 import { RouterLink } from 'vue-router';

@@ -7,7 +7,7 @@ import {
   ConfirmDialog,
   FileUpload,
   FileUploadSelectEvent,
-  useConfirm,
+  useConfirm
 } from 'primevue';
 import { useToast } from 'primevue/usetoast';
 
@@ -28,7 +28,7 @@ function exportNotes() {
       2
     );
     const blob = new Blob([stringifiedJsonWithoutImageId], {
-      type: 'application/json',
+      type: 'application/json'
     });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -70,11 +70,11 @@ function deleteNotes() {
       rejectProps: {
         label: 'Cancel',
         severity: 'secondary',
-        outlined: true,
+        outlined: true
       },
       acceptProps: {
         label: 'Delete',
-        severity: 'danger',
+        severity: 'danger'
       },
       accept: () => {
         localStorage.removeItem('notes');
@@ -83,10 +83,10 @@ function deleteNotes() {
           severity: 'info',
           summary: 'Confirmed',
           detail: 'All notes were deleted',
-          life: 3000,
+          life: 3000
         });
       },
-      reject: () => {},
+      reject: () => {}
     });
   } else {
     showNotesNotFoundToast();
@@ -98,7 +98,7 @@ function showNotesNotFoundToast() {
     severity: 'error',
     summary: 'Error',
     detail: 'Notes not found',
-    life: 3000,
+    life: 3000
   });
 }
 
@@ -107,7 +107,7 @@ function showNotesImportedToast() {
     severity: 'success',
     summary: 'Success',
     detail: 'Notes were successfully imported',
-    life: 3000,
+    life: 3000
   });
 }
 </script>

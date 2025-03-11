@@ -11,7 +11,7 @@ const store = useStore();
       '-translate-y-full': !store.notification.visible,
       'bg-blue-500': store.notification.type === 0,
       'bg-green-500': store.notification.type === 1,
-      'bg-red-500': store.notification.type === 2,
+      'bg-red-500': store.notification.type === 2
     }"
   >
     <h1 class="text-2xl font-bold text-white">

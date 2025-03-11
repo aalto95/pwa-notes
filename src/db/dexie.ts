@@ -12,7 +12,7 @@ export class NotesDexie extends Dexie {
   constructor() {
     super('notesDatabase');
     this.version(1).stores({
-      files: 'id, data, createdAt',
+      files: 'id, data, createdAt'
     });
   }
 }

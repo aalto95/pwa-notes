@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue';
+import { useErrorHandler } from '@/composables/useErrorHandler';
 import { useStore } from '@/store/store';
 import { Toast } from 'primevue';
+import { useToast } from 'primevue/usetoast';
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 
 const store = useStore();
+const toast = useToast();
+const { setToast } = useErrorHandler();
 
-onMounted(async () => {
+// Set up toast for error handler
+setToast(toast);
+
+onMounted(() => {
   const localStorageDarkMode = localStorage.getItem('darkMode');
   if (!localStorageDarkMode) {
     localStorage.setItem('darkMode', 'true');

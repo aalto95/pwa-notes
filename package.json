@@ -16,12 +16,15 @@
     "lint:styles": "stylelint ./src/**/*.{scss,vue}",
     "lint:styles:fix": "stylelint ./src/**/*.{scss,vue} --fix",
     "prettier": "prettier src/**/*.{js,ts,tsx,vue,json} --write",
-    "analyze": "analyze -c ./vite.config.ts -p 8889"
+    "analyze": "vite build --mode analyze"
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
+    "dexie": "^4.0.11",
+    "pinia": "^3.0.3",
     "primevue": "^4.2.5",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@config-federation/vue": "^0.1.2",
@@ -30,16 +33,14 @@
     "@tailwindcss/vite": "^4.1.10",
     "@types/node": "^24.0.4",
     "@vitejs/plugin-vue": "^6.0.0",
-    "dexie": "^4.0.11",
     "jiti": "^2.4.2",
-    "pinia": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.6.13",
+    "stylelint": "^16.0.0",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-bundle-analyzer": "^0.16.2",
     "vite-plugin-pwa": "^1.0.0",
-    "vue-router": "^4.5.1",
     "vue-tsc": "^2.2.10",
     "vuedraggable": "^4.1.0"
   },

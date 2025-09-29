@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useImageCache } from '@/composables/useImageCache';
 import { db } from '@/db/dexie';
 import { Note } from '@/models/Note';
 import { useStore } from '@/store/store';
+import { base64ToDataUrl } from '@/utils/imageUtils';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -10,7 +12,6 @@ import {
   PencilIcon,
   TrashIcon
 } from '@heroicons/vue/24/solid';
-import { liveQuery } from 'dexie';
 import { onMounted, ref, watch } from 'vue';
 
 interface Props {
@@ -19,13 +20,14 @@ interface Props {
 
 const props = defineProps<Props>();
 const store = useStore();
+const { loadImage } = useImageCache();
 
 const isActionBarActive = ref(false);
 const isTextVisible = ref(false);
 const imageSrc = ref<string>('');
 
-function deleteNote() {
-  store.deleteNote(props.note.id, props.note.imageId);
+async function deleteNote() {
+  await store.deleteNote(props.note.id, props.note.imageId);
 }
 
 function openActions() {
@@ -40,25 +42,39 @@ function toggleText() {
   isTextVisible.value = !isTextVisible.value;
 }
 
-function loadImage() {
-  liveQuery(async () => {
-    return await db.files
-      .where('id')
-      .equals(props.note.imageId)
-      .first((file) => {
-        imageSrc.value = 'data:image/jpeg;base64,' + btoa(file!.data);
-      });
-  }).subscribe();
+async function loadImageData() {
+  if (!props.note.imageId) {
+    return;
+  }
+
+  try {
+    const dataUrl = await loadImage(props.note.imageId, async () => {
+      const file = await db.files
+        .where('id')
+        .equals(props.note.imageId)
+        .first();
+
+      if (!file) {
+        throw new Error('Image file not found');
+      }
+
+      return base64ToDataUrl(file.data, file.mimeType);
+    });
+
+    imageSrc.value = dataUrl;
+  } catch (error) {
+    console.error('Error loading image:', error);
+  }
 }
 
 onMounted(() => {
-  loadImage();
+  loadImageData();
 });
 
 watch(
   () => props.note.imageId,
   () => {
-    loadImage();
+    loadImageData();
   }
 );
 </script>

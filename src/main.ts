@@ -1,4 +1,5 @@
 import App from '@/App.vue';
+import { useErrorHandler } from '@/composables/useErrorHandler';
 import '@/main.css';
 import router from '@/router';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
@@ -23,4 +24,9 @@ app.use(PrimeVue, {
 });
 app.use(ToastService);
 app.use(ConfirmationService);
+
+// Set up global error handling (without toast for now)
+const { setupGlobalErrorHandling } = useErrorHandler();
+setupGlobalErrorHandling();
+
 app.mount('#app');

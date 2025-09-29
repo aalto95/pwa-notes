@@ -2,7 +2,8 @@ import Dexie from 'dexie';
 
 export interface File {
   id: string;
-  data: string;
+  data: string; // base64 encoded data
+  mimeType: string;
   createdAt: Date;
 }
 

@@ -48,12 +48,22 @@ function importNotes(event: FileUploadSelectEvent) {
   const reader = new FileReader();
 
   reader.onload = (e) => {
-    const jsContent = e.target?.result;
-    const jsonObject: Note[] = eval(`(${jsContent})`);
-    const jsonString = JSON.stringify(jsonObject);
-    localStorage.setItem('notes', jsonString);
-    showNotesImportedToast();
-    store.notes = jsonObject;
+    try {
+      const jsContent = e.target?.result as string;
+      const jsonObject: Note[] = JSON.parse(jsContent);
+      const jsonString = JSON.stringify(jsonObject);
+      localStorage.setItem('notes', jsonString);
+      showNotesImportedToast();
+      store.notes = jsonObject;
+    } catch (error) {
+      console.error('Failed to parse JSON file:', error);
+      toast.add({
+        severity: 'error',
+        summary: 'Import Error',
+        detail: 'Invalid JSON file format',
+        life: 3000
+      });
+    }
   };
 
   reader.readAsText(file);

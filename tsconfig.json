@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "/",
     "target": "ESNext",
     "module": "ESNext",
     "strict": true,
@@ -13,12 +14,11 @@
     "useDefineForClassFields": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "declaration": true,
     "outDir": "dist",
     "declarationDir": "dist",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
   },

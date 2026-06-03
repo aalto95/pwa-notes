@@ -1,25 +1,20 @@
 <script setup lang="ts">
-import router from '@/router';
-import { useStore } from '@/store/store';
-import {
-  Cog8ToothIcon,
-  MoonIcon,
-  PlusIcon,
-  SunIcon
-} from '@heroicons/vue/24/solid';
-import Button from 'primevue/button';
-import { RouterLink } from 'vue-router';
+import { Cog8ToothIcon, MoonIcon, PlusIcon, SunIcon } from "@heroicons/vue/24/solid";
+import Button from "primevue/button";
+import { RouterLink } from "vue-router";
+import router from "@/router";
+import { useStore } from "@/store/store";
 
 const store = useStore();
 
 function openNewNoteView() {
-  router.push('/note');
+	router.push("/note");
 }
 
 function toggleDarkMode() {
-  localStorage.setItem('darkMode', String(!store.darkMode));
-  document.documentElement.classList.toggle('my-app-dark');
-  store.darkMode = !store.darkMode;
+	localStorage.setItem("darkMode", String(!store.darkMode));
+	document.documentElement.classList.toggle("my-app-dark");
+	store.darkMode = !store.darkMode;
 }
 </script>
 

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { useImageCache } from '@/composables/useImageCache';
-import { db } from '@/db/dexie';
-import { Note } from '@/models/Note';
-import { useStore } from '@/store/store';
-import { base64ToDataUrl } from '@/utils/imageUtils';
 import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-  PencilIcon,
-  TrashIcon
-} from '@heroicons/vue/24/solid';
-import { onMounted, ref, watch } from 'vue';
+	ChevronDownIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	ChevronUpIcon,
+	PencilIcon,
+	TrashIcon,
+} from "@heroicons/vue/24/solid";
+import { onMounted, ref, watch } from "vue";
+import { useImageCache } from "@/composables/useImageCache";
+import { db } from "@/db/dexie";
+import type { Note } from "@/models/Note";
+import { useStore } from "@/store/store";
+import { base64ToDataUrl } from "@/utils/imageUtils";
 
 interface Props {
-  note: Note;
+	note: Note;
 }
 
 const props = defineProps<Props>();
@@ -24,58 +24,55 @@ const { loadImage } = useImageCache();
 
 const isActionBarActive = ref(false);
 const isTextVisible = ref(false);
-const imageSrc = ref<string>('');
+const imageSrc = ref<string>("");
 
 async function deleteNote() {
-  await store.deleteNote(props.note.id, props.note.imageId);
+	await store.deleteNote(props.note.id, props.note.imageId);
 }
 
 function openActions() {
-  isActionBarActive.value = true;
+	isActionBarActive.value = true;
 }
 
 function closeActions() {
-  isActionBarActive.value = false;
+	isActionBarActive.value = false;
 }
 
 function toggleText() {
-  isTextVisible.value = !isTextVisible.value;
+	isTextVisible.value = !isTextVisible.value;
 }
 
 async function loadImageData() {
-  if (!props.note.imageId) {
-    return;
-  }
+	if (!props.note.imageId) {
+		return;
+	}
 
-  try {
-    const dataUrl = await loadImage(props.note.imageId, async () => {
-      const file = await db.files
-        .where('id')
-        .equals(props.note.imageId)
-        .first();
+	try {
+		const dataUrl = await loadImage(props.note.imageId, async () => {
+			const file = await db.files.where("id").equals(props.note.imageId).first();
 
-      if (!file) {
-        throw new Error('Image file not found');
-      }
+			if (!file) {
+				throw new Error("Image file not found");
+			}
 
-      return base64ToDataUrl(file.data, file.mimeType);
-    });
+			return base64ToDataUrl(file.data, file.mimeType);
+		});
 
-    imageSrc.value = dataUrl;
-  } catch (error) {
-    console.error('Error loading image:', error);
-  }
+		imageSrc.value = dataUrl;
+	} catch (error) {
+		console.error("Error loading image:", error);
+	}
 }
 
 onMounted(() => {
-  loadImageData();
+	loadImageData();
 });
 
 watch(
-  () => props.note.imageId,
-  () => {
-    loadImageData();
-  }
+	() => props.note.imageId,
+	() => {
+		loadImageData();
+	},
 );
 </script>
 

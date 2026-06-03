@@ -1,4 +1,4 @@
-import { deepMerge, VitestConfig, vitestConfig } from '@config-federation/vue';
+import { deepMerge, type VitestConfig, vitestConfig } from '@config-federation/vue';
 import { mergeConfig } from 'vite';
 import viteConfig from './vite.config';
 

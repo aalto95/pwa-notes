@@ -1,124 +1,118 @@
 <script setup lang="ts">
-import { Note } from '@/models/Note';
-import { useStore } from '@/store/store';
-import { DocumentArrowDownIcon, TrashIcon } from '@heroicons/vue/24/solid';
+import { DocumentArrowDownIcon, TrashIcon } from "@heroicons/vue/24/solid";
 import {
-  Button,
-  ConfirmDialog,
-  FileUpload,
-  FileUploadSelectEvent,
-  useConfirm
-} from 'primevue';
-import { useToast } from 'primevue/usetoast';
+	Button,
+	ConfirmDialog,
+	FileUpload,
+	type FileUploadSelectEvent,
+	useConfirm,
+} from "primevue";
+import { useToast } from "primevue/usetoast";
+import type { Note } from "@/models/Note";
+import { useStore } from "@/store/store";
 
 const store = useStore();
 const toast = useToast();
 const confirm = useConfirm();
 
 function exportNotes() {
-  const notes = localStorage.getItem('notes');
-  if (notes && notes !== '[]' && notes !== 'null') {
-    const notesJson: Note[] = JSON.parse(notes);
-    const notesJsonWithoutImageId = notesJson.map(
-      ({ imageId, ...rest }) => rest
-    );
-    const stringifiedJsonWithoutImageId = JSON.stringify(
-      notesJsonWithoutImageId,
-      null,
-      2
-    );
-    const blob = new Blob([stringifiedJsonWithoutImageId], {
-      type: 'application/json'
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'notes.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  } else {
-    showNotesNotFoundToast();
-  }
+	const notes = localStorage.getItem("notes");
+	if (notes && notes !== "[]" && notes !== "null") {
+		const notesJson: Note[] = JSON.parse(notes);
+		const notesJsonWithoutImageId = notesJson.map(({ imageId, ...rest }) => rest);
+		const stringifiedJsonWithoutImageId = JSON.stringify(notesJsonWithoutImageId, null, 2);
+		const blob = new Blob([stringifiedJsonWithoutImageId], {
+			type: "application/json",
+		});
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "notes.json";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	} else {
+		showNotesNotFoundToast();
+	}
 }
 
 function importNotes(event: FileUploadSelectEvent) {
-  const file = event.files[0];
-  const reader = new FileReader();
+	const file = event.files[0];
+	const reader = new FileReader();
 
-  reader.onload = (e) => {
-    try {
-      const jsContent = e.target?.result as string;
-      const jsonObject: Note[] = JSON.parse(jsContent);
-      const jsonString = JSON.stringify(jsonObject);
-      localStorage.setItem('notes', jsonString);
-      showNotesImportedToast();
-      store.notes = jsonObject;
-    } catch (error) {
-      console.error('Failed to parse JSON file:', error);
-      toast.add({
-        severity: 'error',
-        summary: 'Import Error',
-        detail: 'Invalid JSON file format',
-        life: 3000
-      });
-    }
-  };
+	reader.onload = (e) => {
+		try {
+			const jsContent = e.target?.result as string;
+			const jsonObject: Note[] = JSON.parse(jsContent);
+			const jsonString = JSON.stringify(jsonObject);
+			localStorage.setItem("notes", jsonString);
+			showNotesImportedToast();
+			store.notes = jsonObject;
+		} catch (error) {
+			console.error("Failed to parse JSON file:", error);
+			toast.add({
+				severity: "error",
+				summary: "Import Error",
+				detail: "Invalid JSON file format",
+				life: 3000,
+			});
+		}
+	};
 
-  reader.readAsText(file);
+	reader.readAsText(file);
 }
 
 function deleteNotes() {
-  const notes = localStorage.getItem('notes');
-  if (notes && notes !== '[]' && notes !== 'null') {
-    confirm.require({
-      message: 'Do you want to delete this record?',
-      header: 'Danger Zone',
-      icon: 'pi pi-info-circle',
-      rejectLabel: 'Cancel',
-      rejectProps: {
-        label: 'Cancel',
-        severity: 'secondary',
-        outlined: true
-      },
-      acceptProps: {
-        label: 'Delete',
-        severity: 'danger'
-      },
-      accept: () => {
-        localStorage.removeItem('notes');
-        store.notes = [];
-        toast.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'All notes were deleted',
-          life: 3000
-        });
-      },
-      reject: () => {}
-    });
-  } else {
-    showNotesNotFoundToast();
-  }
+	const notes = localStorage.getItem("notes");
+	if (notes && notes !== "[]" && notes !== "null") {
+		confirm.require({
+			message: "Do you want to delete this record?",
+			header: "Danger Zone",
+			icon: "pi pi-info-circle",
+			rejectLabel: "Cancel",
+			rejectProps: {
+				label: "Cancel",
+				severity: "secondary",
+				outlined: true,
+			},
+			acceptProps: {
+				label: "Delete",
+				severity: "danger",
+			},
+			accept: () => {
+				localStorage.removeItem("notes");
+				store.notes = [];
+				toast.add({
+					severity: "info",
+					summary: "Confirmed",
+					detail: "All notes were deleted",
+					life: 3000,
+				});
+			},
+			reject: () => {},
+		});
+	} else {
+		showNotesNotFoundToast();
+	}
 }
 
 function showNotesNotFoundToast() {
-  toast.add({
-    severity: 'error',
-    summary: 'Error',
-    detail: 'Notes not found',
-    life: 3000
-  });
+	toast.add({
+		severity: "error",
+		summary: "Error",
+		detail: "Notes not found",
+		life: 3000,
+	});
 }
 
 function showNotesImportedToast() {
-  toast.add({
-    severity: 'success',
-    summary: 'Success',
-    detail: 'Notes were successfully imported',
-    life: 3000
-  });
+	toast.add({
+		severity: "success",
+		summary: "Success",
+		detail: "Notes were successfully imported",
+		life: 3000,
+	});
 }
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NoteList from '@/components/NoteList.vue';
+import NoteList from "@/components/NoteList.vue";
 </script>
 
 <template>

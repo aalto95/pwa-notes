@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import AppHeader from '@/components/AppHeader.vue';
-import { useErrorHandler } from '@/composables/useErrorHandler';
-import { useStore } from '@/store/store';
-import { Toast } from 'primevue';
-import { useToast } from 'primevue/usetoast';
-import { onMounted } from 'vue';
-import { RouterView } from 'vue-router';
+import { Toast } from "primevue";
+import { useToast } from "primevue/usetoast";
+import { onMounted } from "vue";
+import { RouterView } from "vue-router";
+import AppHeader from "@/components/AppHeader.vue";
+import { useErrorHandler } from "@/composables/useErrorHandler";
+import { useStore } from "@/store/store";
 
 const store = useStore();
 const toast = useToast();
@@ -15,18 +15,18 @@ const { setToast } = useErrorHandler();
 setToast(toast);
 
 onMounted(() => {
-  const localStorageDarkMode = localStorage.getItem('darkMode');
-  if (!localStorageDarkMode) {
-    localStorage.setItem('darkMode', 'true');
-    store.darkMode = true;
-    document.documentElement.classList.add('my-app-dark');
-  } else if (localStorageDarkMode === 'true') {
-    store.darkMode = true;
-    document.documentElement.classList.add('my-app-dark');
-  } else {
-    store.darkMode = false;
-  }
-  store.getNotes();
+	const localStorageDarkMode = localStorage.getItem("darkMode");
+	if (!localStorageDarkMode) {
+		localStorage.setItem("darkMode", "true");
+		store.darkMode = true;
+		document.documentElement.classList.add("my-app-dark");
+	} else if (localStorageDarkMode === "true") {
+		store.darkMode = true;
+		document.documentElement.classList.add("my-app-dark");
+	} else {
+		store.darkMode = false;
+	}
+	store.getNotes();
 });
 </script>
 

@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import NoteItem from '@/components/NoteItem.vue';
-import { useStore } from '@/store/store';
-import { ref } from 'vue';
-import draggable from 'vuedraggable';
+import { ref } from "vue";
+import draggable from "vuedraggable";
+import NoteItem from "@/components/NoteItem.vue";
+import { useStore } from "@/store/store";
 
 const store = useStore();
 const drag = ref(false);
 
 const dragOptions = {
-  animation: 200,
-  group: 'description',
-  disabled: false,
-  ghostClass: 'ghost'
+	animation: 200,
+	group: "description",
+	disabled: false,
+	ghostClass: "ghost",
 };
 
 function dragEnd() {
-  localStorage.setItem('notes', JSON.stringify(store.notes));
-  drag.value = false;
+	localStorage.setItem("notes", JSON.stringify(store.notes));
+	drag.value = false;
 }
 </script>
 
